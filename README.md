@@ -1,66 +1,49 @@
-Bem-vindo ao meu portfólio! 🚀
-Aqui compartilho projetos práticos em Power BI, Excel/Power Query, DAX, SQL e Python, mostrando minhas habilidades em tratamento, modelagem e visualização de dados.
+# 📊 Portfólio de Analista de Dados - Vinícius da Costa Soares
 
-📌 Sobre
+Bem-vindo ao meu portfólio! 🚀  
+Aqui compartilho projetos práticos em **Power BI, Excel/Power Query, DAX, SQL e Python**, mostrando minhas habilidades em tratamento, modelagem e visualização de dados.
 
-Este repositório tem como objetivo centralizar meus estudos e cases de análise de dados. Cada projeto foi desenvolvido com foco em problemas reais de negócio, passando por etapas de coleta, limpeza, transformação, análise e visualização de dados.
+---
 
-📂 Estrutura
+## 📌 Sobre  
+Este repositório tem como objetivo centralizar meus estudos e cases de análise de dados.  
+Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passando por etapas de coleta, limpeza, transformação, análise e visualização de dados.
 
-portfolio-analista-dados/
-│
-├── projetos/
-│   └── 01-excel-powerbi/
-│       ├── dados/
-│       │   ├── raw/          # dados originais (anonimizados)
-│       │   └── processed/    # dados tratados
-│       ├── powerquery/       # prints e scripts M
-│       ├── medidas/          # medidas DAX documentadas
-│       ├── modelo/           # diagrama relacional
-│       ├── relatorio/        # arquivos PBIX
-│       └── imagens/          # screenshots dos dashboards
-│
-├── LICENSE
-└── README.md
+---
 
-🔎 Projetos
+## 📂 Estrutura do Repositório
 
-Projeto 01 — Planilha → Dashboard no Power BI
 
-Transformação de uma planilha Excel desestruturada em um dashboard interativo no Power BI.
+## 🗂 Projeto 01 — **Planilha → Dashboard no Power BI**
 
-Limpeza e padronização no Power Query.
+✅ Transformação de uma planilha Excel desestruturada em um dashboard interativo no Power BI  
+✅ Limpeza e padronização no Power Query  
+✅ Criação de medidas DAX  
+✅ Estruturação de modelo simples  
+✅ Visualizações com KPIs e filtros dinâmicos  
 
-Criação de medidas DAX.
+### 📷 Preview  
+<img width="1277" height="703" alt="painel completo" src="https://github.com/user-attachments/assets/69f3c41f-7284-42c5-9a81-105413ef82a6" />
 
-Estruturação de modelo simples.
+---
 
-Visualizações com KPIs e filtros dinâmicos.
+## 🚀 Tecnologias Utilizadas
 
-📷 Preview: 
+- **Power BI Desktop**  
+- **Excel / CSV**  
+- **Git & GitHub** para versionamento  
 
-🚀 Tecnologias utilizadas
+---
 
-Power BI Desktop
+## 📐 Exemplos de Medidas DAX
 
-Excel / CSV
+**Funcionários com Dependentes**  
+```DAX
+Func_com_dep = DISTINCTCOUNT(Dependente[ID_MATRICULA])
+Funcionarios = COUNT(Funcionario[MATRÍCULA])
+Total = SUM(Funcionario[SALÁRIO])
 
-SQL (para integrações futuras)
 
-Python (pandas) para pré-processamento
 
-Git & GitHub para versionamento
 
-✨ Próximos passos
 
-Criar análises com bancos SQL.
-
-Integrar Python para automações de ETL.
-
-Explorar storytelling avançado em dashboards.
-
-📫 Contato
-
-LinkedIn: seu-link-linkedin
-
-E-mail: seuemail@exemplo.com

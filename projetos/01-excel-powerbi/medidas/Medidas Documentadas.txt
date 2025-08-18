@@ -1,0 +1,8 @@
+1. Func com dep (Funcionário com dependentes) = DISTINCTCOUNT(Dependente[ID_MATRICULA]) 
+	Objetivo: Contar o número de funcionários distintos que possuem dependentes cadastrados.
+
+2. Funcionários - Funcionários = COUNT(Funcionario[MATRÍCULA])
+	Objetivo: Contar o número de registros na coluna Matrícula da tabela de funcionários, o que corresponde ao total de funcionários cadastrados.
+
+3. Total - Total = SUM(Funcionario[SALÁRIO])
+	Objetivo: Calcular a soma de todos os valores da coluna Salário, retornando o total da folha salarial dos funcionários.

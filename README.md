@@ -11,7 +11,7 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 
 ---
 
-## 🗂 Projeto 01 — **Planilha → Dashboard no Power BI**
+## 🗂 Projeto 01 — **Dashboard no Power BI**
 
 ✅ Transformação de uma planilha Excel desestruturada em um dashboard interativo no Power BI  
 ✅ Limpeza e padronização no Power Query  
@@ -48,19 +48,6 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 - **Excel / CSV**  
 - **DAX** para criação de métricas e KPIs  
 - **Git & GitHub** para versionamento  
-
----
-
-## 📂 Estrutura do Projeto
-02-case-analitico/
-│
-├── dados/
-│ ├── raw/ # Dados brutos recebidos
-│ └── processed/ # Dados tratados para análise
-│
-├── medidas/ # Arquivos com medidas DAX criadas
-├── relatorio/ # Relatórios e prints do dashboard
-└── README.md # Documentação do projeto
 
 ---
 

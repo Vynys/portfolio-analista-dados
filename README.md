@@ -20,7 +20,8 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 ✅ Visualizações com KPIs e filtros dinâmicos  
 
 ### 📷 Preview  
-<img width="1277" height="703" alt="painel completo" src="https://github.com/user-attachments/assets/69f3c41f-7284-42c5-9a81-105413ef82a6" />
+<img width="1528" height="846" alt="Projeto1_Func" src="https://github.com/user-attachments/assets/60a50770-3395-481f-99a7-17b2ceea3d1d" />
+
 
 ---
 

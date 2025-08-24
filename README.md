@@ -33,6 +33,9 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 - Implementação de **KPIs chave** (Total de Funcionários, Funcionários com Dependentes e Total de Salários).  
 - Análise por **cargo, setor e localidade (UF)**, permitindo diferentes perspectivas da base.  
 
+## 📖 Relatório 
+- Link para o relatório completo : https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto1_Func/relatorio/Projeto1_Func.docx
+
 ---
 
 # 🗂 Projeto 02 - Dashboard de Indicadores

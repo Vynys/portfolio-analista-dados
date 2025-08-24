@@ -1,0 +1,200 @@
+MEDIDAS DA DASHBOARD
+Descrição, fórmula DAX e finalidade
+
+================================================
+1) PARÂMETROS E METAS (tabela _Medidas)
+================================================
+• Custo Total (R$)
+  DAX: Custo Total (R$) = 8091
+  Uso: Base do cálculo de custo unitário.
+
+• Operadores por Dia
+  DAX: Operadores por Dia = 100
+  Uso: Parâmetro para produtividade (Pacotes por Operador).
+
+• Meta % Prazo
+  DAX: Meta % Prazo = 0,90
+  Uso: Meta do SLA (90%).
+
+• Meta Custo por Pacote (R$)
+  DAX: Meta Custo por Pacote (R$) = 0,50
+  Uso: Meta do custo unitário.
+
+• Meta Produtividade por Operador
+  DAX: Meta Produtividade por Operador = 900
+  Uso: Meta de produtividade por operador/dia.
+
+
+====================================
+2) SLA – EXPEDIÇÃO (NÍVEL GERAL)
+====================================
+• Total Pacotes
+  DAX:
+    Total Pacotes =
+      DISTINCTCOUNT ( 'Base_Expedicao'[Número do pedido (pacote)] )
+  Uso: Denominador do SLA.
+
+• Pacotes no Prazo
+  DAX:
+    Pacotes no Prazo =
+      CALCULATE(
+        [Total Pacotes],
+        FILTER(
+          'Base_Expedicao',
+          'Base_Expedicao'[Horário de Saída] <= 'Base_Expedicao'[Data alvo]
+        )
+      )
+  Uso: Numerador do SLA.
+
+• Pct Pacotes no Prazo
+  DAX: Pct Pacotes no Prazo = DIVIDE( [Pacotes no Prazo], [Total Pacotes] )
+  Uso: KPI de SLA (exibir em %).
+
+
+===================================================
+3) SLA POR UF (respeitando DimData)
+===================================================
+• Total Pacotes (UF)
+  DAX:
+    Total Pacotes (UF) =
+      VAR Dates = VALUES( DimData[Date] )
+      RETURN
+      CALCULATE(
+        DISTINCTCOUNT( 'Base_Expedicao'[Número do pedido (pacote)] ),
+        TREATAS( Dates, 'Base_Expedicao'[Recebimento Data] )
+      )
+  Uso: Total por UF coerente com o período.
+
+• Pacotes no Prazo (UF)
+  DAX:
+    Pacotes no Prazo (UF) =
+      VAR Dates = VALUES( DimData[Date] )
+      RETURN
+      CALCULATE(
+        DISTINCTCOUNT( 'Base_Expedicao'[Número do pedido (pacote)] ),
+        FILTER(
+          'Base_Expedicao',
+          'Base_Expedicao'[Horário de Saída] <= 'Base_Expedicao'[Data alvo]
+        ),
+        TREATAS( Dates, 'Base_Expedicao'[Recebimento Data] )
+      )
+  Uso: Numerador do SLA por UF.
+
+• Pacotes Fora do Prazo (UF)
+  DAX: Pacotes Fora do Prazo (UF) = [Total Pacotes (UF)] - [Pacotes no Prazo (UF)]
+  Uso: Complemento do empilhado (fora do prazo).
+
+• Pct Pacotes no Prazo (UF)
+  DAX: Pct Pacotes no Prazo (UF) = DIVIDE( [Pacotes no Prazo (UF)], [Total Pacotes (UF)] )
+  Uso: Percentual por UF (tooltip/legenda).
+
+
+==========================
+4) CUSTO UNITÁRIO (R$)
+==========================
+• Custo por Pacote (R$)
+  DAX: Custo por Pacote (R$) = DIVIDE( [Custo Total (R$)], [Total Pacotes] )
+  Uso: Custo médio sob o filtro atual.
+
+• Total Pacotes (Seleção)
+  DAX:
+    Total Pacotes (Seleção) =
+      CALCULATE(
+        DISTINCTCOUNT('Base_Expedicao'[Número do pedido (pacote)]),
+        ALLSELECTED(DimData[Date])
+      )
+  Uso: Denominador fixo do intervalo selecionado.
+
+• Custo por Pacote (R$) - Seleção
+  DAX: Custo por Pacote (R$) - Seleção = DIVIDE( [Custo Total (R$)], [Total Pacotes (Seleção)] )
+  Uso: Custo médio estável do período (gráfico).
+
+• Total Pacotes (Faixa Seleção)
+  DAX:
+    Total Pacotes (Faixa Seleção) =
+      VAR d1 = MINX(ALLSELECTED(DimData[Date]), DimData[Date])
+      VAR d2 = MAXX(ALLSELECTED(DimData[Date]), DimData[Date])
+      RETURN
+      CALCULATE(
+        DISTINCTCOUNT('Base_Expedicao'[Número do pedido (pacote)]),
+        KEEPFILTERS('Base_Expedicao'[Recebimento Data] >= d1),
+        KEEPFILTERS('Base_Expedicao'[Recebimento Data] <= d2)
+      )
+  Uso: Alternativa explícita de faixa.
+
+• Custo por Pacote (R$) - Seleção (Estável)
+  DAX: Custo por Pacote (R$) - Seleção (Estável) = DIVIDE( [Custo Total (R$)], [Total Pacotes (Faixa Seleção)] )
+  Uso: Versão estável por faixa explícita.
+
+• Total Pacotes (Acumulado)
+  DAX:
+    Total Pacotes (Acumulado) =
+      CALCULATE(
+        DISTINCTCOUNT('Base_Expedicao'[Número do pedido (pacote)]),
+        FILTER( ALLSELECTED(DimData[Date]), DimData[Date] <= MAX(DimData[Date]) )
+      )
+  Uso: Denominador acumulado até a data.
+
+• Custo por Pacote (R$) - Acumulado
+  DAX: Custo por Pacote (R$) - Acumulado = DIVIDE( [Custo Total (R$)], [Total Pacotes (Acumulado)] )
+  Uso: Custo médio acumulado.
+
+• Pacotes Processados (Prod)
+  DAX: Pacotes Processados (Prod) = DISTINCTCOUNT( 'Base_Produtividade'[Waybill Number] )
+  Uso: Base para o rateio no contexto de produtividade.
+
+• Pacotes Processados (Todos)
+  DAX: Pacotes Processados (Todos) = CALCULATE( [Pacotes Processados (Prod)], ALL( 'Base_Produtividade' ) )
+  Uso: Proporção global para o rateio.
+
+• Custo Rateado no Período (R$)
+  DAX: Custo Rateado no Período (R$) = [Custo Total (R$)] * DIVIDE( [Pacotes Processados (Prod)], [Pacotes Processados (Todos)] )
+  Uso: Rateia custo total pelo volume do período.
+
+• Custo por Pacote (R$) - Rateado
+  DAX: Custo por Pacote (R$) - Rateado = DIVIDE( [Custo Rateado no Período (R$)], [Pacotes Processados (Prod)] )
+  Uso: Versão temporal coerente com produtividade.
+
+• Total Pacotes (DimData) [aux]
+  DAX:
+    Total Pacotes (DimData) =
+      VAR Dates = VALUES( DimData[Date] )
+      RETURN
+      CALCULATE(
+        DISTINCTCOUNT( 'Base_Expedicao'[Número do pedido (pacote)] ),
+        TREATAS( Dates, 'Base_Expedicao'[Recebimento Data] )
+      )
+  Uso: Coerência de datas via DimData.
+
+• Custo por Pacote (R$) - Safe [aux]
+  DAX: Custo por Pacote (R$) - Safe = DIVIDE( [Custo Total (R$)], [Total Pacotes (DimData)] )
+  Uso: Custo usando total sincronizado por DimData.
+
+
+====================
+5) PRODUTIVIDADE
+====================
+• Pacotes por Operador
+  DAX: Pacotes por Operador = DIVIDE( [Pacotes Processados (Prod)], [Operadores por Dia] )
+  Uso: KPI de produtividade (meta 900).
+
+• Status Prod (Turno)
+  DAX: Status Prod (Turno) = IF ( [Pacotes por Operador] >= [Meta Produtividade por Operador], 1, 0 )
+  Uso: Cor das barras por turno.
+
+
+======================================
+6) STATUS/CORES PARA CARDS
+======================================
+• Status Prazo  | DAX: IF( [Pct Pacotes no Prazo] >= [Meta % Prazo], 1, 0 )
+• Status Custo  | DAX: IF( [Custo por Pacote (R$)] <= [Meta Custo por Pacote (R$)], 1, 0 )
+• Status Prod   | DAX: IF( [Pacotes por Operador] >= [Meta Produtividade por Operador], 1, 0 )
+
+• Cor Prazo  | DAX: IF([Status Prazo]=1, "#2CA02C", "#D62728")
+• Cor Custo  | DAX: IF([Status Custo]=1, "#2CA02C", "#D62728")
+• Cor Prod   | DAX: IF([Status Prod]=1, "#2CA02C", "#D62728")
+
+Observações
+— Medidas centralizadas na tabela _Medidas.
+— DimData marcada como tabela de datas; relacionamentos 1:* com Base_Expedicao[Recebimento Data] e Base_Produtividade[Data].
+— Formatos: SLA em %, Custo em R$ (2 casas), Produtividade em inteiro.

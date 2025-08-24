@@ -35,15 +35,51 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 
 ---
 
-## 📐 Exemplos de Medidas DAX
+# 📊 Case Analítico 02 - Dashboard de Indicadores
 
-**Funcionários com Dependentes**  
-```DAX
-Func_com_dep = DISTINCTCOUNT(Dependente[ID_MATRICULA])
-Funcionarios = COUNT(Funcionario[MATRÍCULA])
-Total = SUM(Funcionario[SALÁRIO])
+## 📌 Descrição
+Este projeto faz parte do meu portfólio de Analista de Dados e foi desenvolvido a partir de um desafio analítico.  
+O objetivo foi **explorar, tratar e visualizar dados** para gerar insights de negócio através de um dashboard interativo no Power BI.
 
+---
 
+## 🎯 Objetivos do Case
+- Centralizar os principais **indicadores de desempenho (KPIs)**.  
+- Identificar pontos abaixo da meta e sugerir melhorias.  
+- Apresentar os resultados de forma clara e visual.  
+
+---
+
+## 🚀 Tecnologias Utilizadas
+- **Power BI Desktop**  
+- **Excel / CSV**  
+- **DAX** para criação de métricas e KPIs  
+- **Git & GitHub** para versionamento  
+
+---
+
+## 📂 Estrutura do Projeto
+02-case-analitico/
+│
+├── dados/
+│ ├── raw/ # Dados brutos recebidos
+│ └── processed/ # Dados tratados para análise
+│
+├── medidas/ # Arquivos com medidas DAX criadas
+├── relatorio/ # Relatórios e prints do dashboard
+└── README.md # Documentação do projeto
+
+---
+
+### 📷 Preview  
+<img width="1432" height="702" alt="image" src="https://github.com/user-attachments/assets/c76b3e06-0f85-40dd-b637-97ef03ad757c" />
+
+---
+
+## 🚀 Resultados e Insights
+- Identificação dos KPIs abaixo da meta.
+- Visualização clara de desempenho por categoria/segmento. 
+- Base para recomendações estratégicas de melhoria.
 
 
 

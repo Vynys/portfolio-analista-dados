@@ -11,9 +11,6 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 
 ---
 
-## 📂 Estrutura do Repositório
-
-
 ## 🗂 Projeto 01 — **Planilha → Dashboard no Power BI**
 
 ✅ Transformação de uma planilha Excel desestruturada em um dashboard interativo no Power BI  
@@ -35,11 +32,7 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 
 ---
 
-# 📊 Case Analítico 02 - Dashboard de Indicadores
-
-## 📌 Descrição
-Este projeto faz parte do meu portfólio de Analista de Dados e foi desenvolvido a partir de um desafio analítico.  
-O objetivo foi **explorar, tratar e visualizar dados** para gerar insights de negócio através de um dashboard interativo no Power BI.
+# 🗂 Case Analítico 02 - Dashboard de Indicadores
 
 ---
 

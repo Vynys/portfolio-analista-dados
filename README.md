@@ -2,6 +2,8 @@
 
 Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver problemas de negócio de ponta a ponta (coleta → modelagem → visualização).
 
+Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
+
 [![MIT](https://img.shields.io/badge/License-MIT-green.svg)](#)
 [![Power BI](https://img.shields.io/badge/Power%20BI-Reports-yellow)](#)
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](#)

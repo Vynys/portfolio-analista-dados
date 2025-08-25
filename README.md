@@ -82,6 +82,8 @@ Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver proble
 
 ## 📷 Preview 
 <img width="1275" height="718" alt="image" src="https://github.com/user-attachments/assets/9b45f3e5-ce6c-4e9c-993f-41ba73837b4b" />
+![Animação](https://github.com/user-attachments/assets/a4dc7ddc-846a-4fa5-a4d0-557477f1cbe6)
+
 
 
 ## 🚀 Tecnologias Utilizadas

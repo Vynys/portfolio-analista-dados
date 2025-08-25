@@ -25,6 +25,8 @@ Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver proble
 - Fornecer uma visão clara, visual e interativa para apoiar a tomada de decisão.
 
 ### 📷 Preview  
+![dash1](https://github.com/user-attachments/assets/d75e6227-a728-45c8-9002-dd73b2424400)
+
 <img width="1528" height="846" alt="Projeto1_Func" src="https://github.com/user-attachments/assets/60a50770-3395-481f-99a7-17b2ceea3d1d" />
 
 
@@ -53,6 +55,8 @@ Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver proble
 - Apresentar os resultados de forma clara e visual.  
 
 ## 📷 Preview  
+![dash2](https://github.com/user-attachments/assets/35809e8d-0c13-4563-962c-a20065ebdeb3)
+
 <img width="1432" height="702" alt="image" src="https://github.com/user-attachments/assets/c76b3e06-0f85-40dd-b637-97ef03ad757c" />
 
 ## 🚀 Tecnologias Utilizadas
@@ -81,9 +85,9 @@ Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver proble
 - Demonstrar aplicação prática de scripts Python dentro do Power BI.
 
 ## 📷 Preview 
-<img width="1275" height="718" alt="image" src="https://github.com/user-attachments/assets/9b45f3e5-ce6c-4e9c-993f-41ba73837b4b" />
-
 ![Animação](https://github.com/user-attachments/assets/25928a0c-fb00-4fda-84cc-7c677576f121)
+
+<img width="1275" height="718" alt="image" src="https://github.com/user-attachments/assets/9b45f3e5-ce6c-4e9c-993f-41ba73837b4b" />
 
 
 

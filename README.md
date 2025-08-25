@@ -1,9 +1,16 @@
-# 📊 Portfólio de Analista de Dados - Vinicius da Costa Soares
-Aqui compartilho projetos práticos em **Power BI, Excel/Power Query, DAX, SQL e Python**, mostrando minhas habilidades em tratamento, modelagem e visualização de dados.
+# Portfólio de Analista de Dados — Vinicius da Costa Soares
 
-## 📌 Sobre  
-Este repositório tem como objetivo centralizar meus estudos e cases de análise de dados.  
-Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passando por etapas de coleta, limpeza, transformação, análise e visualização de dados.
+Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver problemas de negócio de ponta a ponta (coleta → modelagem → visualização).
+
+[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](#)
+[![Power BI](https://img.shields.io/badge/Power%20BI-Reports-yellow)](#)
+[![Python](https://img.shields.io/badge/Python-3.x-blue)](#)
+
+## Sumário
+- [Projeto 01 — Dashboard no Power BI](#projeto-01--dashboard-no-power-bi)
+- [Projeto 02 — Dashboard de Indicadores](#projeto-02---dashboard-de-indicadores)
+- [Projeto 03 — Dashboard com Python](#projeto-03---dashboard-com-python)
+
 
 ---
 

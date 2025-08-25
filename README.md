@@ -1,4 +1,4 @@
-# 📊 Portfólio de Analista de Dados - Vinícius da Costa Soares
+# 📊 Portfólio de Analista de Dados - Vinicius da Costa Soares
 Aqui compartilho projetos práticos em **Power BI, Excel/Power Query, DAX, SQL e Python**, mostrando minhas habilidades em tratamento, modelagem e visualização de dados.
 
 ## 📌 Sobre  
@@ -74,6 +74,8 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 - Demonstrar aplicação prática de scripts Python dentro do Power BI.
 
 ## 📷 Preview 
+<img width="1275" height="718" alt="image" src="https://github.com/user-attachments/assets/9b45f3e5-ce6c-4e9c-993f-41ba73837b4b" />
+
 
 ## 🚀 Tecnologias Utilizadas
 - Python 3.x
@@ -87,6 +89,9 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 - Integração bem-sucedida entre Python e Power BI.
 - Automação da coleta e atualização de dados financeiros.
 - Demonstração prática de habilidades técnicas em Python, DAX e Power BI.
+
+## 📖 Relatório 
+- Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto3_Case/relatorio/Doc_DashPython.docx
 
 
 

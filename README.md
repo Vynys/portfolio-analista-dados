@@ -45,7 +45,7 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 - Identificar pontos abaixo da meta e sugerir melhorias.  
 - Apresentar os resultados de forma clara e visual.  
 
-### 📷 Preview  
+## 📷 Preview  
 <img width="1432" height="702" alt="image" src="https://github.com/user-attachments/assets/c76b3e06-0f85-40dd-b637-97ef03ad757c" />
 
 ## 🚀 Tecnologias Utilizadas
@@ -62,6 +62,33 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 ## 📖 Relatório 
 - Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto2_Case/relatorio/Projeto02-%20DashboarddeIndicadores.docx
 - Link para o Case Analítico: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto2_Case/relatorio/Case%20Anal%C3%ADtico.docx
+
+---
+
+# 🗂 Projeto 03 - Dashboard com Python
+
+## 🎯 Objetivos do Case
+- Integrar Python e Power BI em um fluxo analítico.
+- Automatizar a coleta e atualização de dados financeiros.
+- Criar um dashboard em tempo real para análise de ações.
+- Demonstrar aplicação prática de scripts Python dentro do Power BI.
+
+## 📷 Preview 
+
+## 🚀 Tecnologias Utilizadas
+- Python 3.x
+- Pandas
+- YFinance (Yahoo Finance API) 
+- Virtualenv
+- Power BI Desktop
+- Git & GitHub para versionamento
+
+## 📊 Resultados e 💡 Insights
+- Integração bem-sucedida entre Python e Power BI.
+- Automação da coleta e atualização de dados financeiros.
+- Demonstração prática de habilidades técnicas em Python, DAX e Power BI.
+
+
 
 
 

@@ -55,7 +55,7 @@ Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver proble
 - Apresentar os resultados de forma clara e visual.  
 
 ## 📷 Preview  
-![dash2](https://github.com/user-attachments/assets/35809e8d-0c13-4563-962c-a20065ebdeb3)
+![dash2](https://github.com/user-attachments/assets/f0d744b2-3fd2-4948-a576-230dee73a121)
 
 <img width="1432" height="702" alt="image" src="https://github.com/user-attachments/assets/c76b3e06-0f85-40dd-b637-97ef03ad757c" />
 

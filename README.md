@@ -6,6 +6,10 @@ Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver proble
 [![Power BI](https://img.shields.io/badge/Power%20BI-Reports-yellow)](#)
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](#)
 
+![powerbigif](https://github.com/user-attachments/assets/7dbad7a9-c475-4de1-90e5-53bd59e7ef8c) 
+
+
+
 ## Sumário
 - [Projeto 01 — Dashboard no Power BI](#projeto-01--dashboard-no-power-bi)
 - [Projeto 02 — Dashboard de Indicadores](#projeto-02---dashboard-de-indicadores)

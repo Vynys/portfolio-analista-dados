@@ -59,5 +59,9 @@ Cada projeto foi desenvolvido com foco em **problemas reais de negócio**, passa
 - Visualização clara de desempenho por categoria/segmento. 
 - Base para recomendações estratégicas de melhoria.
 
+## 📖 Relatório 
+- Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto2_Case/relatorio/Projeto02-%20DashboarddeIndicadores.docx
+- Link para o Case Analítico: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto2_Case/relatorio/Case%20Anal%C3%ADtico.docx
+
 
 

@@ -1,4 +1,4 @@
-# Portfólio de Analista de Dados — Vinicius da Costa Soares
+# Portfólio — Vinicius da Costa Soares
 
 Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver problemas de negócio de ponta a ponta (coleta → modelagem → visualização).
 

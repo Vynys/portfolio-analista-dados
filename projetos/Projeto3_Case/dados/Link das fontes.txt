@@ -1,0 +1,3 @@
+Petrobras: https://finance.yahoo.com/quote/PETR3.SA/
+Vale: https://finance.yahoo.com/quote/VALE/
+Banco do Brasil: https://finance.yahoo.com/quote/BBAS3.SA/

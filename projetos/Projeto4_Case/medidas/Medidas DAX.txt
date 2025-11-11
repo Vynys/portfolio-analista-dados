@@ -1,0 +1,137 @@
+=====================================================
+💡 PROJETO JAAR CONSULT – DASHBOARD DE INDICADORES
+=====================================================
+
+📘 ARQUIVO: Medidas_DAX.txt
+📅 DATA: Novembro / 2025
+📊 DESCRIÇÃO:
+Este arquivo contém todas as medidas DAX utilizadas no dashboard desenvolvido para a JAAR Consult,
+com o objetivo de analisar indicadores operacionais, financeiros e de performance de equipes.
+
+=====================================================
+# 🧮 SEÇÃO 1: INDICADORES GERAIS
+=====================================================
+
+📌 Total de Vendas
+Total Vendas = SUM(Fato_Vendas[Valor Total])
+
+📌 Quantidade de Pedidos
+Qtd Pedidos = COUNTROWS(Fato_Vendas)
+
+📌 Ticket Médio
+Ticket Médio = DIVIDE([Total Vendas], [Qtd Pedidos])
+
+📌 Margem Bruta (%)
+Margem Bruta (%) = 
+DIVIDE(
+    SUM(Fato_Vendas[Lucro Bruto]),
+    SUM(Fato_Vendas[Valor Total]),
+    0
+)
+
+📌 Crescimento (%)
+Crescimento (%) = 
+VAR VendasAtual = [Total Vendas]
+VAR VendasAnterior = CALCULATE([Total Vendas], DATEADD(Calendario[Data], -1, YEAR))
+RETURN DIVIDE(VendasAtual - VendasAnterior, VendasAnterior)
+
+=====================================================
+# 🧾 SEÇÃO 2: INDICADORES FINANCEIROS
+=====================================================
+
+📌 Receita Total (YTD)
+Receita YTD = TOTALYTD([Total Vendas], Calendario[Data])
+
+📌 Lucro Líquido
+Lucro Líquido = SUM(Fato_Financeiro[Lucro Liquido])
+
+📌 Despesas Operacionais
+Despesas Operacionais = SUM(Fato_Financeiro[Despesa])
+
+📌 Rentabilidade (%)
+Rentabilidade (%) =
+DIVIDE([Lucro Líquido], [Total Vendas], 0)
+
+=====================================================
+# 👷‍♂️ SEÇÃO 3: PERFORMANCE DE EQUIPE
+=====================================================
+
+📌 Produtividade Média
+Produtividade Média =
+AVERAGEX(VALUES(Dim_Equipe[Colaborador]), [Qtd Pedidos])
+
+📌 Meta Atingida (%)
+Meta Atingida (%) =
+DIVIDE([Total Vendas], [Meta Vendas], 0)
+
+📌 Ranking de Vendas
+Ranking Vendas =
+RANKX(
+    ALL(Dim_Equipe[Colaborador]),
+    [Total Vendas],
+    ,
+    DESC
+)
+
+=====================================================
+# 📅 SEÇÃO 4: ANÁLISE TEMPORAL
+=====================================================
+
+📌 Vendas Mês Anterior
+Vendas Mês Anterior = 
+CALCULATE([Total Vendas], PARALLELPERIOD(Calendario[Data], -1, MONTH))
+
+📌 Vendas Acumuladas (YTD)
+Vendas YTD = 
+TOTALYTD([Total Vendas], Calendario[Data])
+
+📌 Média de Vendas Diárias
+Média Vendas Diárias =
+AVERAGEX(
+    VALUES(Calendario[Data]),
+    [Total Vendas]
+)
+
+📌 Comparativo LY (Ano Anterior)
+Vendas LY =
+CALCULATE([Total Vendas], SAMEPERIODLASTYEAR(Calendario[Data]))
+
+📌 Crescimento Anual (%)
+Crescimento Anual (%) =
+DIVIDE([Total Vendas] - [Vendas LY], [Vendas LY], 0)
+
+=====================================================
+# 🧭 SEÇÃO 5: KPI E INSIGHTS
+=====================================================
+
+📌 % Clientes Ativos
+% Clientes Ativos = 
+DIVIDE(
+    CALCULATE(DISTINCTCOUNT(Dim_Clientes[ClienteID]), Fato_Vendas),
+    DISTINCTCOUNT(Dim_Clientes[ClienteID])
+)
+
+📌 % Clientes Novos
+% Clientes Novos =
+VAR ClientesAnoAtual =
+    CALCULATETABLE(VALUES(Dim_Clientes[ClienteID]), YEAR(Calendario[Data]) = YEAR(TODAY()))
+VAR ClientesAnoAnterior =
+    CALCULATETABLE(VALUES(Dim_Clientes[ClienteID]), YEAR(Calendario[Data]) = YEAR(TODAY())-1)
+RETURN
+DIVIDE(COUNTROWS(EXCEPT(ClientesAnoAtual, ClientesAnoAnterior)), COUNTROWS(ClientesAnoAnterior))
+
+📌 Churn Rate (%)
+Churn Rate (%) =
+1 - [% Clientes Ativos]
+
+=====================================================
+# 🧠 OBSERVAÇÕES GERAIS
+=====================================================
+✔ Todas as medidas utilizam o calendário conectado via relacionamento 1:N com a tabela fato.
+✔ Foram aplicadas funções de tempo padrão DAX: TOTALYTD, DATEADD, SAMEPERIODLASTYEAR.
+✔ KPIs configurados para variação de cor (verde/negativo) com base em meta de 10% de crescimento anual.
+✔ As medidas foram otimizadas com variáveis e filtros contextuais para melhor performance no modelo.
+
+=====================================================
+FIM DO ARQUIVO
+=====================================================

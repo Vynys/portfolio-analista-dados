@@ -123,6 +123,8 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 - Utilizar **RLS estático e dinâmico** para controle de acesso a dados.
 
 ## 📷 Preview
+![jaarrelatorioo](https://github.com/user-attachments/assets/46c9cc94-287c-4df7-9112-c410713ce314)
+
 <img width="1512" height="853" alt="image" src="https://github.com/user-attachments/assets/91d55403-e10b-488b-bcd3-895fdb091490" />
 
 ## 🚀 Tecnologias Utilizadas

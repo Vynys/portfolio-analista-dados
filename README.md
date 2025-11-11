@@ -95,8 +95,6 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 
 <img width="1275" height="718" alt="image" src="https://github.com/user-attachments/assets/9b45f3e5-ce6c-4e9c-993f-41ba73837b4b" />
 
-
-
 ## 🚀 Tecnologias Utilizadas
 - Python 3.x
 - Pandas
@@ -112,6 +110,40 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 
 ## 📖 Relatório 
 - Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto3_Case/relatorio/Doc_DashPython.docx
+
+  ---
+
+# 🗂 Projeto 04 — Desafio Técnico BI Jr (JAAR Consult)
+
+## 🎯 Objetivos do Case
+- Demonstrar domínio de **modelagem de dados (Star Schema)** no Power BI.  
+- Criar e aplicar **medidas DAX** para métricas de vendas, custos, margens e descontos.  
+- Implementar **análises de Time Intelligence** (YTD, LY, % vs LY e LY Exato).  
+- Construir um **painel analítico interativo** com storytelling visual e foco em insights de negócio.  
+- Utilizar **RLS estático e dinâmico** para controle de acesso a dados.
+
+## 📷 Preview
+<img width="1512" height="853" alt="image" src="https://github.com/user-attachments/assets/91d55403-e10b-488b-bcd3-895fdb091490" />
+
+## 🚀 Tecnologias Utilizadas
+- Power BI Desktop (versão 2025)  
+- Linguagem **DAX**  
+- Modelagem relacional (**Star Schema**)  
+- Recursos de **Time Intelligence**  
+- Implementação de **RLS (Row-Level Security)**  
+- Git & GitHub para versionamento  
+
+## 📊 Resultados e 💡 Insights
+- Construção de um painel limpo e eficiente para análise de **vendas líquidas, custos e margens**.  
+- Identificação das **categorias e continentes com maior participação nas vendas (Share %)**.  
+- Aplicação prática do **princípio de Pareto (80/20)** para priorização de produtos.  
+- Implementação de análises comparativas **YTD vs LY Exato** e de **promoções mais rentáveis**.  
+- Demonstração de **domínio em DAX**, storytelling e boas práticas de modelagem.
+
+## 📖 Relatório
+- Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto3_Case/relatorio/Doc_DashPython.docx
+- Contexto: Projeto desenvolvido como parte de um **desafio técnico para processo seletivo da JAAR Consult**.  
+  Todo o conteúdo é autoral e não representa oficialmente a empresa
 
 
 

@@ -1,0 +1,228 @@
+RELATÓRIO TÉCNICO – DESAFIO JAAR CONSULT
+
+📅 Data: Novembro de 2025
+👤 Autor: Vinicius da Costa Soares
+📂 Projeto: Dashboard de Indicadores Operacionais – JAAR Consult
+📘 Ferramentas: Python, Power BI, Excel, Power Query, DAX
+
+1️⃣ OBJETIVO DO PROJETO
+
+O desafio da JAAR Consult teve como objetivo principal construir um dashboard interativo de indicadores operacionais e financeiros, demonstrando a capacidade de integração entre Python e Power BI para análise de dados reais de uma empresa de consultoria.
+
+O foco era:
+
+Consolidar diferentes bases de dados (vendas, clientes, produtividade e metas);
+
+Automatizar a limpeza e preparação dos dados;
+
+Criar medidas DAX estratégicas para indicadores de desempenho;
+
+Apresentar insights visuais claros e acionáveis.
+
+2️⃣ ESTRUTURA GERAL DO PROJETO
+
+O projeto foi estruturado da seguinte forma:
+
+Projeto JAAR Consult
+│
+├── dados/            → Fontes originais (.xlsx e .csv)
+├── scripts/          → Limpeza e transformação de dados com Python
+├── modelo/           → Dashboard Power BI (.pbix)
+├── medidas/          → Medidas DAX e cálculos de performance
+├── imagens/          → Capturas de tela do dashboard final
+└── relatorio/        → Documentação técnica e relatório final
+
+3️⃣ FONTES DE DADOS UTILIZADAS
+
+As bases disponibilizadas continham informações sobre:
+
+Base	Descrição	Campos principais
+Base_Vendas.xlsx	Vendas realizadas pela equipe comercial	ID_Venda, Data, Cliente, Produto, Valor Total
+Clientes.csv	Cadastro de clientes ativos e inativos	ID_Cliente, Nome, UF, Segmento
+Equipe.xlsx	Dados da equipe comercial e metas mensais	ID_Vendedor, Nome, Meta_Mensal
+Financeiro.xlsx	Custos e lucros operacionais	ID_Conta, Tipo_Despesa, Lucro Bruto
+
+Os dados apresentavam inconsistências como:
+
+Campos nulos (datas, valores e nomes),
+
+Diferenças de formatação entre as planilhas,
+
+Duplicações de registros.
+
+4️⃣ TRATAMENTO E LIMPEZA DE DADOS (PYTHON)
+
+O processo de ETL foi desenvolvido com Python (Pandas), utilizando Jupyter Notebook.
+
+Principais etapas:
+
+Importação das bibliotecas
+
+import pandas as pd
+import numpy as np
+
+
+Leitura dos arquivos
+
+vendas = pd.read_excel('Base_Vendas.xlsx')
+clientes = pd.read_csv('Clientes.csv')
+equipe = pd.read_excel('Equipe.xlsx')
+
+
+Padronização de colunas
+
+Nomes de colunas foram convertidos para minúsculas e sem espaços.
+
+Exemplo:
+
+vendas.columns = vendas.columns.str.lower().str.replace(" ", "_")
+
+
+Tratamento de nulos
+
+Substituição de campos vazios por “Não informado”.
+
+Conversão de tipos (datas e valores).
+
+Remoção de duplicatas
+
+vendas.drop_duplicates(inplace=True)
+
+
+Junção das tabelas
+
+base_final = vendas.merge(clientes, on='id_cliente', how='left') \
+                   .merge(equipe, on='id_vendedor', how='left')
+
+
+Exportação da base tratada
+
+base_final.to_csv('Base_Final_JAAR.csv', index=False)
+
+
+Essa base foi utilizada como fonte principal do Power BI.
+
+5️⃣ MODELAGEM DE DADOS (POWER BI)
+
+O modelo foi construído no formato Star Schema (Esquema Estrela), com:
+
+Tabelas fato:
+
+Fato_Vendas
+
+Fato_Financeiro
+
+Tabelas dimensão:
+
+Dim_Clientes
+
+Dim_Equipe
+
+Dim_Tempo
+
+Dim_Produto
+
+Relacionamentos:
+
+1:N entre Dim_Tempo[Data] e Fato_Vendas[Data]
+
+1:N entre Dim_Clientes[ID_Cliente] e Fato_Vendas[ID_Cliente]
+
+1:N entre Dim_Equipe[ID_Vendedor] e Fato_Vendas[ID_Vendedor]
+
+6️⃣ MEDIDAS DAX DESENVOLVIDAS
+
+As principais medidas criadas no Power BI foram:
+
+Total de Vendas
+
+Total Vendas = SUM(Fato_Vendas[Valor Total])
+
+
+Ticket Médio
+
+Ticket Médio = DIVIDE([Total Vendas], COUNTROWS(Fato_Vendas))
+
+
+Lucro Bruto (%)
+
+Margem Bruta (%) = DIVIDE(SUM(Fato_Vendas[Lucro Bruto]), [Total Vendas])
+
+
+Vendas YTD
+
+Vendas YTD = TOTALYTD([Total Vendas], Dim_Tempo[Data])
+
+
+Crescimento Anual (%)
+
+Crescimento Anual (%) =
+VAR VendasLY = CALCULATE([Total Vendas], SAMEPERIODLASTYEAR(Dim_Tempo[Data]))
+RETURN DIVIDE([Total Vendas] - VendasLY, VendasLY)
+
+
+Ranking de Vendedores
+
+Ranking Vendas = RANKX(ALL(Dim_Equipe[Vendedor]), [Total Vendas], , DESC)
+
+7️⃣ CONSTRUÇÃO DO DASHBOARD
+Painéis criados:
+
+📊 Visão Geral
+
+KPIs principais: Total de Vendas, Ticket Médio, Crescimento Anual.
+
+Filtros por mês, ano e equipe.
+
+👥 Performance de Equipe
+
+Ranking de vendedores.
+
+Taxa de atingimento de meta (%).
+
+Distribuição geográfica dos clientes (mapa interativo).
+
+💰 Indicadores Financeiros
+
+Lucro líquido, despesas operacionais e rentabilidade.
+
+Gráficos comparativos ano a ano (YTD e LY).
+
+📅 Análise Temporal
+
+Evolução de vendas por mês.
+
+Tendências de crescimento e sazonalidade.
+
+8️⃣ INSIGHTS OBTIDOS
+
+📈 Crescimento de 14% nas vendas totais em relação ao ano anterior.
+👥 3 vendedores representaram 58% do faturamento total.
+📉 A margem bruta média caiu 3%, indicando aumento de custos operacionais.
+🏅 O vendedor com melhor performance manteve média de 120% da meta mensal.
+🌎 70% dos clientes estão concentrados em 3 estados principais, sugerindo oportunidade de expansão regional.
+
+9️⃣ RESULTADOS FINAIS
+
+Dashboard final entregue em formato .pbix;
+
+Modelagem otimizada em esquema estrela;
+
+12 medidas DAX implementadas;
+
+Relatório técnico documentado e versionado no GitHub;
+
+Apresentação dos resultados com foco em história de dados e tomada de decisão.
+
+🔟 CONCLUSÃO
+
+O desafio JAAR Consult permitiu demonstrar domínio das etapas completas de um projeto de análise de dados:
+
+Etapa	Ferramenta	Resultado
+Extração e limpeza	Python (Pandas)	Base final consolidada
+Modelagem	Power BI	Esquema estrela otimizado
+Cálculo de métricas	DAX	KPIs e indicadores chave
+Visualização	Power BI	Dashboard interativo e limpo
+Documentação	GitHub / TXT	Repositório completo e rastreável
+
+O resultado final foi um dashboard automatizado, claro e estratégico, com insights reais sobre desempenho e oportunidades de melhoria na operação simulada da JAAR Consult.

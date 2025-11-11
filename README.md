@@ -143,7 +143,7 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 - Demonstração de **domínio em DAX**, storytelling e boas práticas de modelagem.
 
 ## 📖 Relatório
-- Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto3_Case/relatorio/Doc_DashPython.docx
+- Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/tree/main/projetos/Projeto4_Case/relatorio
 - Contexto: Projeto desenvolvido como parte de um **desafio técnico para processo seletivo da JAAR Consult**.  
   Todo o conteúdo é autoral e não representa oficialmente a empresa
 

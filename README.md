@@ -147,6 +147,59 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 - Contexto: Projeto desenvolvido como parte de um **desafio técnico para processo seletivo da JAAR Consult**.  
   Todo o conteúdo é autoral e não representa oficialmente a empresa
 
+  ---
+
+#  Projeto 05 — Dashboard de Vendas no Excel
+## 🎯 Objetivos do Case
+  * Consolidar KPIs mês a mês: receita, leads, conversão e ticket médio.
+  * Identificar estados, marcas e lojas com maior volume de vendas.
+  * Analisar visitas ao site por dia da semana para entender padrão de tráfego.
+  * Construir um dashboard no Excel com visual limpo e leitura rápida.
+
+## 📷 Preview
+
+
+## 🚀 Tecnologias Utilizadas
+  * Excel
+  * Power Query
+  * Tabelas Dinâmicas / Gráficos
+  * Git & GitHub para versionamento
+
+## 📊 Resultados e 💡 Insights
+  * KPIs consolidados por mês (receita, leads, conversão e ticket médio).
+  * Rankings de estados, marcas e lojas com maior volume de vendas.
+  * Visão rápida do padrão de visitas por dia da semana.
+
+## 📖 Relatório
+  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_ExcelVendas/relatorio/Projeto5_Dashboard_Vendas.pdf
+  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_ExcelVendas/Projeto5_Dashboard_Vendas.xlsx
+
+---
+
+#  Projeto 06 — Perfil dos Leads no Excel
+## 🎯 Objetivos do Case
+  * Analisar o perfil dos leads por gênero, status profissional, faixa etária e faixa salarial.
+  * Avaliar preferências relacionadas a veículos (classificação, idade e modelos mais visitados por marca).
+  * Criar um dashboard no Excel para segmentação e leitura rápida.
+
+## 📷 Preview
+
+
+## 🚀 Tecnologias Utilizadas
+  * Excel
+  * Power Query
+  * Tabelas Dinâmicas / Gráficos
+  * Git & GitHub para versionamento
+
+## 📊 Resultados e 💡 Insights
+  * Perfil demográfico consolidado dos leads (gênero, idade, renda, status).
+  * Visão de interesse por veículos (novo/seminovo/usado, idade do veículo).
+  * Ranking de veículos mais visitados por marca.
+
+## 📖 Relatório
+  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_ExcelLeads/relatorio/Projeto6_Perfil_Leads.pdf
+  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_ExcelLeads/Projeto6_Perfil_Leads.xlsx
+
 
 
 

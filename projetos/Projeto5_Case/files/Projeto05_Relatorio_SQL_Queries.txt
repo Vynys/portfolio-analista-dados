@@ -1,0 +1,308 @@
+RELATÓRIO TÉCNICO — PROJETO 05 (SQL / PostgreSQL) — ANÁLISE DE VENDAS E FUNIL
+=============================================================================
+
+📌 Contexto e premissas
+Projeto SQL-first em PostgreSQL (executado no pgAdmin). As queries consolidam métricas de funil e vendas e geram tabelas prontas para exportação.
+O Excel é usado apenas para comunicação: colar os resultados e construir gráficos/relatório em PDF com leitura rápida para stakeholders.
+
+🧭 Como usar este relatório
+- Cada query é apresentada com: objetivo, saída, SQL numerado e explicação linha a linha.
+- Ao final de cada query há um resumo de impacto (como ela alimenta a análise/dashboards).
+
+
+QUERY 01 — Receita, leads, conversão e ticket médio mês a mês
+=============================================================
+
+🎯 Objetivo
+Consolidar uma visão mensal do funil: volume de leads (visitas), volume de vendas (pagamentos), receita, conversão e ticket médio.
+
+📌 Saída (colunas)
+mês, leads (#), vendas (#), receita (k, R$), conversão (%), ticket médio (k, R$).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 1) Receita, leads, conversão e ticket médio mês a mês
+02 -- Colunas: mês, leads (#), vendas (#), receita (k, R$), conversão (%), ticket médio (k, R$)
+03 with 
+04 	leads as (
+05 		select
+06 			date_trunc('month', visit_page_date)::date as visit_page_month,
+07 			count(*) as visit_page_count
+08 		from sales.funnel
+09 		group by visit_page_month
+10 		order by visit_page_month
+11 	),
+12 	
+13 	payments as (
+14 		select
+15 			date_trunc('month', fun.paid_date)::date as paid_month,
+16 			count(fun.paid_date) as paid_count,
+17 			sum(pro.price * (1+fun.discount)) as receita
+18 		from sales.funnel as fun
+19 		left join sales.products as pro
+20 			on fun.product_id = pro.product_id
+21 		where fun.paid_date is not null
+22 		group by paid_month
+23 		order by paid_month
+24 	)
+25 	
+26 select
+27 	leads.visit_page_month as "mês",
+28 	leads.visit_page_count as "leads (#)",
+29 	payments.paid_count as "vendas (#)",
+30 	(payments.receita/1000) as "receita (k, R$)",
+31 	(payments.paid_count::float/leads.visit_page_count::float) as "conversão (%)",
+32 	(payments.receita/payments.paid_count/1000) as "ticket médio (k, R$)"
+33 from leads
+34 left join payments
+35 	on leads.visit_page_month = paid_month
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Início de CTEs (Common Table Expressions) para dividir a query em etapas reutilizáveis.
+04 Início da CTE `leads`: cria uma etapa intermediária com resultado nomeado.
+05 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+06 Padroniza a data para o mês (1º dia), garantindo agregação mensal consistente.
+07 Conta registros (volume) na granularidade do GROUP BY.
+08 Define a tabela fato principal usada para análise.
+09 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+10 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+11 Fim da CTE anterior e separador para a próxima CTE.
+12 Linha em branco para melhorar legibilidade.
+13 Início da CTE `payments`: cria uma etapa intermediária com resultado nomeado.
+14 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+15 Padroniza a data para o mês (1º dia), garantindo agregação mensal consistente.
+16 Conta vendas: `paid_date` não nulo indica compra/pagamento concluído.
+17 Calcula receita somando preço ajustado por desconto: `price * (1 + discount)`.
+18 Define a tabela fato principal usada para análise.
+19 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+20 Define a chave de relacionamento (como as tabelas se conectam).
+21 Filtra apenas registros com pagamento (remove eventos sem venda).
+22 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+23 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+24 Fim de uma CTE/subconsulta.
+25 Linha em branco para melhorar legibilidade.
+26 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+27 Define o mês de referência das visitas/leads (granularidade mensal).
+28 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+29 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+30 Converte valores para milhares (k) para facilitar leitura no dashboard.
+31 Converte tipos numéricos para garantir divisão correta (percentual/ticket).
+32 Converte valores para milhares (k) para facilitar leitura no dashboard.
+33 Define a tabela fato principal usada para análise.
+34 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+35 Define a chave de relacionamento (como as tabelas se conectam).
+
+📈 Impacto na análise / no dashboard
+Base do painel mensal (séries temporais). Permite comparar performance mês a mês, identificar sazonalidade e medir eficiência do funil (conversão) e monetização (ticket).
+
+⚠️ Observações e cuidados
+- Se existir mês com leads e zero vendas, `paid_count` pode vir NULL; convém tratar com COALESCE para evitar NULL em conversão/ticket.
+- Conversão e ticket podem gerar divisão por zero se `visit_page_count` ou `paid_count` forem 0; em ambiente produtivo, use NULLIF.
+- Receita usa `price * (1 + discount)`: pressupõe que `discount` é um fator (ex.: -0.10 para 10% off).
+
+
+
+QUERY 02 — Estados que mais venderam
+====================================
+
+🎯 Objetivo
+Identificar os 5 estados com mais vendas em um mês específico (agosto/2021).
+
+📌 Saída (colunas)
+país, estado, vendas (#).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 2) Estados que mais venderam
+02 -- Colunas: país, estado, vendas (#)
+03 
+04 select
+05 	'Brazil' as país,
+06 	cus.state as estado,
+07 	count(fun.paid_date) as "vendas (#)"
+08 
+09 from sales.funnel as fun
+10 left join sales.customers as cus
+11 	on fun.customer_id = cus.customer_id
+12 where paid_date between '2021-08-01' and '2021-08-31'
+13 group by país, estado
+14 order by "vendas (#)" desc
+15 limit 5
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Cria uma coluna constante para rotular o conjunto (útil para dashboards e futuras uniões).
+06 Seleciona o estado do cliente (dimensão geográfica) para segmentação e ranking.
+07 Conta vendas: `paid_date` não nulo indica compra/pagamento concluído.
+08 Linha em branco para melhorar legibilidade.
+09 Define a tabela fato principal usada para análise.
+10 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+11 Define a chave de relacionamento (como as tabelas se conectam).
+12 Aplica janela temporal fechada (período) para análise comparável e ranking.
+13 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+14 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+15 LIMIT: retorna apenas o Top N para foco em performance.
+
+📈 Impacto na análise / no dashboard
+Ranking geográfico para priorização comercial e alocação de esforços (marketing/vendas) por região.
+
+⚠️ Observações e cuidados
+- O filtro `between '2021-08-01' and '2021-08-31'` inclui datas dentro do mês; em cenários com timestamp, ajuste para intervalo [início, próximo mês).
+
+
+
+QUERY 03 — Marcas que mais venderam no mês
+==========================================
+
+🎯 Objetivo
+Identificar as 5 marcas com mais vendas no mês de referência.
+
+📌 Saída (colunas)
+marca, vendas (#).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 3) Marcas que mais venderam no mês
+02 -- Colunas: marca, vendas (#)
+03 
+04 select
+05 	pro.brand as marca,
+06 	count(fun.paid_date) as "vendas (#)"
+07 
+08 from sales.funnel as fun
+09 left join sales.products as pro
+10 	on fun.product_id = pro.product_id
+11 where paid_date between '2021-08-01' and '2021-08-31'
+12 group by marca
+13 order by "vendas (#)" desc
+14 limit 5
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Seleciona a marca do produto (dimensão) para ranking de performance por marca.
+06 Conta vendas: `paid_date` não nulo indica compra/pagamento concluído.
+07 Linha em branco para melhorar legibilidade.
+08 Define a tabela fato principal usada para análise.
+09 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+10 Define a chave de relacionamento (como as tabelas se conectam).
+11 Aplica janela temporal fechada (período) para análise comparável e ranking.
+12 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+13 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+14 LIMIT: retorna apenas o Top N para foco em performance.
+
+📈 Impacto na análise / no dashboard
+Ranking de produto/marca: orienta mix comercial, estoque, campanhas e parcerias com marcas.
+
+
+
+QUERY 04 — Lojas que mais venderam
+==================================
+
+🎯 Objetivo
+Identificar as 5 lojas com mais vendas no mês de referência.
+
+📌 Saída (colunas)
+loja, vendas (#).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 4) Lojas que mais venderam
+02 -- Colunas: loja, vendas (#)
+03 
+04 select
+05 	sto.store_name as loja,
+06 	count(fun.paid_date) as "vendas (#)"
+07 
+08 from sales.funnel as fun
+09 left join sales.stores as sto
+10 	on fun.store_id = sto.store_id
+11 where paid_date between '2021-08-01' and '2021-08-31'
+12 group by loja
+13 order by "vendas (#)" desc
+14 limit 5
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Seleciona o nome da loja (dimensão) para ranking de performance por loja.
+06 Conta vendas: `paid_date` não nulo indica compra/pagamento concluído.
+07 Linha em branco para melhorar legibilidade.
+08 Define a tabela fato principal usada para análise.
+09 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+10 Define a chave de relacionamento (como as tabelas se conectam).
+11 Aplica janela temporal fechada (período) para análise comparável e ranking.
+12 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+13 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+14 LIMIT: retorna apenas o Top N para foco em performance.
+
+📈 Impacto na análise / no dashboard
+Ranking de performance de loja: base para metas, replicação de boas práticas e investigação de gargalos.
+
+
+
+QUERY 05 — Dias da semana com maior número de visitas ao site
+=============================================================
+
+🎯 Objetivo
+Mapear o volume de visitas por dia da semana (agosto/2021) para entender padrão de tráfego.
+
+📌 Saída (colunas)
+dia_semana (0–6), dia da semana, visitas (#).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 5) Dias da semana com maior número de visitas ao site
+02 -- Colunas: dia_semana, dia da semana, visitas (#)
+03 
+04 select
+05 	extract('dow' from visit_page_date) as dia_semana,
+06 	case 
+07 		when extract('dow' from visit_page_date)=0 then 'domingo'
+08 		when extract('dow' from visit_page_date)=1 then 'segunda'
+09 		when extract('dow' from visit_page_date)=2 then 'terça'
+10 		when extract('dow' from visit_page_date)=3 then 'quarta'
+11 		when extract('dow' from visit_page_date)=4 then 'quinta'
+12 		when extract('dow' from visit_page_date)=5 then 'sexta'
+13 		when extract('dow' from visit_page_date)=6 then 'sábado'
+14 		else null end as "dia da semana",
+15 	count(*) as "visitas (#)"
+16 
+17 from sales.funnel
+18 where visit_page_date between '2021-08-01' and '2021-08-31'
+19 group by dia_semana
+20 order by dia_semana
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+06 Início do CASE: regra para transformar código num rótulo de negócio.
+07 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+08 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+09 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+10 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+11 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+12 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+13 Extrai o dia da semana (0=domingo … 6=sábado) para medir sazonalidade por dia.
+14 Fallback do CASE: categoria padrão quando nenhuma condição anterior se aplica.
+15 Conta registros (volume) na granularidade do GROUP BY.
+16 Linha em branco para melhorar legibilidade.
+17 Define a tabela fato principal usada para análise.
+18 Aplica janela temporal fechada (período) para análise comparável e ranking.
+19 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+20 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+
+📈 Impacto na análise / no dashboard
+Suporta decisões de mídia/marketing (dias com maior demanda), escala operacional e planejamento de ações com base em sazonalidade semanal.
+
+⚠️ Observações e cuidados
+- `extract('dow')` em PostgreSQL retorna 0=domingo, 1=segunda... 6=sábado; a query já traduz para texto via CASE.
+
+

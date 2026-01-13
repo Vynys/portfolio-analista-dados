@@ -1,0 +1,446 @@
+RELATÓRIO TÉCNICO — PROJETO 06 (SQL / PostgreSQL) — PERFIL DOS LEADS
+====================================================================
+
+📌 Contexto e premissas
+Projeto SQL-first em PostgreSQL (pgAdmin). O foco é segmentar leads (perfil demográfico/socioeconômico) e analisar comportamento de visitas a veículos.
+As saídas são tabelas já prontas para visualização: percentuais por faixa e rankings por marca/modelo. O Excel é usado somente para apresentação do resultado final.
+
+🧭 Como usar este relatório
+- Cada query é apresentada com: objetivo, saída, SQL numerado e explicação linha a linha.
+- Ao final de cada query há um resumo de impacto (como ela alimenta a análise/dashboards).
+
+
+QUERY 01 — Gênero dos leads
+===========================
+
+🎯 Objetivo
+Classificar leads por gênero a partir do primeiro nome (tabela auxiliar do IBGE) e contar volume por grupo.
+
+📌 Saída (colunas)
+gênero, leads (#).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 1) Gênero dos leads
+02 -- Colunas: gênero, leads(#)
+03 
+04 select
+05 	case
+06 		when ibge.gender = 'male' then 'homens'
+07 		when ibge.gender = 'female' then 'mulheres'
+08 		end as "gênero",
+09 	count(*) as "leads (#)"
+10 
+11 from sales.customers as cus
+12 left join temp_tables.ibge_genders as ibge
+13 	on lower(cus.first_name) = lower(ibge.first_name)
+14 group by ibge.gender
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Início do CASE: regra para transformar código num rótulo de negócio.
+06 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+07 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+08 Finaliza o CASE e retorna a coluna categorizada.
+09 Conta registros (volume) na granularidade do GROUP BY.
+10 Linha em branco para melhorar legibilidade.
+11 Define a tabela fato principal usada para análise.
+12 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+13 Define a chave de relacionamento (como as tabelas se conectam).
+14 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+
+📈 Impacto na análise / no dashboard
+Segmentação demográfica inicial para entender composição do público e direcionar comunicação/campanhas.
+
+⚠️ Observações e cuidados
+- Nomes não encontrados na tabela `ibge_genders` ficam com `gender` NULL; isso pode gerar um grupo NULL. Em produção, use COALESCE para 'não identificado'.
+- Uso de `lower()` na junção reduz problemas de caixa alta/baixa.
+
+
+
+QUERY 02 — Status profissional dos leads
+========================================
+
+🎯 Objetivo
+Distribuir leads por status profissional e calcular participação percentual de cada grupo.
+
+📌 Saída (colunas)
+status profissional, leads (%).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 2) Status profissional dos leads
+02 -- Colunas: status profissional, leads (%)
+03 
+04 select
+05 	case
+06 		when professional_status = 'freelancer' then 'freelancer'
+07 		when professional_status = 'retired' then 'aposentado(a)'
+08 		when professional_status = 'clt' then 'clt'
+09 		when professional_status = 'self_employed' then 'autônomo(a)'		
+10 		when professional_status = 'other' then 'outro'
+11 		when professional_status = 'businessman' then 'empresário(a)'
+12 		when professional_status = 'civil_servant' then 'funcionário(a) público(a)'
+13 		when professional_status = 'student' then 'estudante'
+14 		end as "status profissional",
+15 	(count(*)::float)/(select count(*) from sales.customers) as "leads (%)"
+16 
+17 from sales.customers
+18 group by professional_status
+19 order by "leads (%)"
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Início do CASE: regra para transformar código num rótulo de negócio.
+06 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+07 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+08 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+09 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+10 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+11 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+12 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+13 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+14 Finaliza o CASE e retorna a coluna categorizada.
+15 Conta registros (volume) na granularidade do GROUP BY.
+16 Linha em branco para melhorar legibilidade.
+17 Define a tabela fato principal usada para análise.
+18 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+19 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+
+📈 Impacto na análise / no dashboard
+Ajuda a entender perfil de ocupação e ajustar linguagem/oferta (ex.: CLT vs autônomo). Percentuais facilitam comparação.
+
+⚠️ Observações e cuidados
+- Percentual é calculado como `count(*) / total_customers`. Ordenação atual é crescente; se quiser top primeiro, use DESC.
+
+
+
+QUERY 03 — Faixa etária dos leads
+=================================
+
+🎯 Objetivo
+Criar faixas etárias a partir da data de nascimento e calcular a participação (%) de cada faixa.
+
+📌 Saída (colunas)
+faixa etária, leads (%).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 3) Faixa etária dos leads
+02 -- Colunas: faixa etária, leads (%)
+03 
+04 select
+05 	case
+06 		when datediff('years', birth_date, current_date) < 20 then '0-20'
+07 		when datediff('years', birth_date, current_date) < 40 then '20-40'
+08 		when datediff('years', birth_date, current_date) < 60 then '40-60'
+09 		when datediff('years', birth_date, current_date) < 80 then '60-80'
+10 		else '80+' end "faixa etária",
+11 		count(*)::float/(select count(*) from sales.customers) as "leads (%)"
+12 
+13 from sales.customers
+14 group by "faixa etária"
+15 order by "faixa etária" desc
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Início do CASE: regra para transformar código num rótulo de negócio.
+06 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+07 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+08 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+09 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+10 Fallback do CASE: categoria padrão quando nenhuma condição anterior se aplica.
+11 Conta registros (volume) na granularidade do GROUP BY.
+12 Linha em branco para melhorar legibilidade.
+13 Define a tabela fato principal usada para análise.
+14 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+15 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+
+📈 Impacto na análise / no dashboard
+Segmentação por idade para orientar persona, campanhas e adequação de produto.
+
+⚠️ Observações e cuidados
+- A query usa `datediff('years', birth_date, current_date)`. Em PostgreSQL puro, normalmente substitui-se por `date_part('year', age(current_date, birth_date))`.
+- Ordenação `desc` em faixa textual pode não refletir ordem natural; se quiser ordem fixa, crie coluna `ordem` (como na query de renda).
+
+
+
+QUERY 04 — Faixa salarial dos leads
+===================================
+
+🎯 Objetivo
+Criar faixas salariais e calcular participação (%) por faixa, incluindo coluna de ordem para plotagem correta.
+
+📌 Saída (colunas)
+faixa salarial, leads (%), ordem.
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 4) Faixa salarial dos leads
+02 -- Colunas: faixa salarial, leads (%), ordem
+03 
+04 select
+05 	case
+06 		when income < 5000 then '0-5000'
+07 		when income < 10000 then '5000-10000'
+08 		when income < 15000 then '10000-15000'
+09 		when income < 20000 then '15000-20000'
+10 		else '20000+' end "faixa salarial",
+11 		count(*)::float/(select count(*) from sales.customers) as "leads (%)",
+12 	case
+13 		when income < 5000 then 1
+14 		when income < 10000 then 2
+15 		when income < 15000 then 3
+16 		when income < 20000 then 4
+17 		else 5 end "ordem"
+18 
+19 from sales.customers
+20 group by "faixa salarial", "ordem"
+21 order by "ordem" desc
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Início do CASE: regra para transformar código num rótulo de negócio.
+06 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+07 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+08 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+09 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+10 Fallback do CASE: categoria padrão quando nenhuma condição anterior se aplica.
+11 Conta registros (volume) na granularidade do GROUP BY.
+12 Início do CASE: regra para transformar código num rótulo de negócio.
+13 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+14 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+15 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+16 Condição do CASE: mapeia um valor/intervalo para uma categoria (label) de negócio.
+17 Fallback do CASE: categoria padrão quando nenhuma condição anterior se aplica.
+18 Linha em branco para melhorar legibilidade.
+19 Define a tabela fato principal usada para análise.
+20 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+21 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+
+📈 Impacto na análise / no dashboard
+Permite avaliar poder aquisitivo e calibrar estratégias (ex.: financiamento, ticket, canal). A coluna `ordem` evita gráfico fora de sequência.
+
+
+
+QUERY 05 — Classificação dos veículos visitados
+===============================================
+
+🎯 Objetivo
+Classificar veículos visitados como 'novo' (≤2 anos) ou 'seminovo' (>2 anos) e contar volume de visitas por classe.
+
+📌 Saída (colunas)
+classificação do veículo, veículos visitados (#).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 5) Classificação dos veículos visitados
+02 -- Colunas: classificação do veículo, veículos visitados (#)
+03 -- Regra de negócio: Veículos novos tem até 2 anos e seminovos acima de 2 anos
+04 
+05 with
+06 	classificacao_veiculos as (
+07 	
+08 		select
+09 			fun.visit_page_date,
+10 			pro.model_year,
+11 			extract('year' from visit_page_date) - pro.model_year::int as idade_veiculo,
+12 			case
+13 				when (extract('year' from visit_page_date) - pro.model_year::int)<=2 then 'novo'
+14 				else 'seminovo'
+15 				end as "classificação do veículo"
+16 		
+17 		from sales.funnel as fun
+18 		left join sales.products as pro
+19 			on fun.product_id = pro.product_id	
+20 	)
+21 
+22 select
+23 	"classificação do veículo",
+24 	count(*) as "veículos visitados (#)"
+25 from classificacao_veiculos
+26 group by "classificação do veículo"
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Comentário/documentação da query (descrição e colunas esperadas).
+04 Linha em branco para melhorar legibilidade.
+05 Início de CTEs (Common Table Expressions) para dividir a query em etapas reutilizáveis.
+06 Início da CTE `classificacao_veiculos`: cria uma etapa intermediária com resultado nomeado.
+07 Linha em branco para melhorar legibilidade.
+08 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+09 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+10 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+11 Extrai o ano e calcula a idade do veículo no momento da visita (base para classificação/faixas).
+12 Início do CASE: regra para transformar código num rótulo de negócio.
+13 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+14 Fallback do CASE: categoria padrão quando nenhuma condição anterior se aplica.
+15 Finaliza o CASE e retorna a coluna categorizada.
+16 Linha em branco para melhorar legibilidade.
+17 Define a tabela fato principal usada para análise.
+18 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+19 Define a chave de relacionamento (como as tabelas se conectam).
+20 Fim de uma CTE/subconsulta.
+21 Linha em branco para melhorar legibilidade.
+22 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+23 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+24 Conta registros (volume) na granularidade do GROUP BY.
+25 Define a tabela fato principal usada para análise.
+26 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+
+📈 Impacto na análise / no dashboard
+Mostra preferência do público por categoria de produto (novo vs seminovo), útil para estoque, precificação e estratégia.
+
+
+
+QUERY 06 — Idade dos veículos visitados
+=======================================
+
+🎯 Objetivo
+Agrupar visitas em faixas de idade do veículo e calcular distribuição percentual (%) para leitura comparativa.
+
+📌 Saída (colunas)
+idade do veículo (faixa), veículos visitados (%), ordem.
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 6) Idade dos veículos visitados
+02 -- Colunas: Idade do veículo, veículos visitados (%), ordem
+03 
+04 with
+05 	faixa_de_idade_dos_veiculos as (
+06 	
+07 		select
+08 			fun.visit_page_date,
+09 			pro.model_year,
+10 			extract('year' from visit_page_date) - pro.model_year::int as idade_veiculo,
+11 			case
+12 				when (extract('year' from visit_page_date) - pro.model_year::int)<=2 then 'até 2 anos'
+13 				when (extract('year' from visit_page_date) - pro.model_year::int)<=4 then 'de 2 à 4 anos'
+14 				when (extract('year' from visit_page_date) - pro.model_year::int)<=6 then 'de 4 à 6 anos'
+15 				when (extract('year' from visit_page_date) - pro.model_year::int)<=8 then 'de 6 à 8 anos'
+16 				when (extract('year' from visit_page_date) - pro.model_year::int)<=10 then 'de 8 à 10 anos'
+17 				else 'acima de 10 anos'
+18 				end as "idade do veículo",
+19 			case
+20 				when (extract('year' from visit_page_date) - pro.model_year::int)<=2 then 1
+21 				when (extract('year' from visit_page_date) - pro.model_year::int)<=4 then 2
+22 				when (extract('year' from visit_page_date) - pro.model_year::int)<=6 then 3
+23 				when (extract('year' from visit_page_date) - pro.model_year::int)<=8 then 4
+24 				when (extract('year' from visit_page_date) - pro.model_year::int)<=10 then 5
+25 				else 6
+26 				end as "ordem"
+27 
+28 		from sales.funnel as fun
+29 		left join sales.products as pro
+30 			on fun.product_id = pro.product_id	
+31 	)
+32 
+33 select
+34 	"idade do veículo",
+35 	count(*)::float/(select count(*) from sales.funnel) as "veículos visitados (%)",
+36 	ordem
+37 from faixa_de_idade_dos_veiculos
+38 group by "idade do veículo", ordem
+39 order by ordem
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início de CTEs (Common Table Expressions) para dividir a query em etapas reutilizáveis.
+05 Início da CTE `faixa_de_idade_dos_veiculos`: cria uma etapa intermediária com resultado nomeado.
+06 Linha em branco para melhorar legibilidade.
+07 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+08 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+09 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+10 Extrai o ano e calcula a idade do veículo no momento da visita (base para classificação/faixas).
+11 Início do CASE: regra para transformar código num rótulo de negócio.
+12 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+13 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+14 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+15 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+16 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+17 Fallback do CASE: categoria padrão quando nenhuma condição anterior se aplica.
+18 Finaliza o CASE e retorna a coluna categorizada.
+19 Início do CASE: regra para transformar código num rótulo de negócio.
+20 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+21 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+22 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+23 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+24 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+25 Fallback do CASE: categoria padrão quando nenhuma condição anterior se aplica.
+26 Finaliza o CASE e retorna a coluna categorizada.
+27 Linha em branco para melhorar legibilidade.
+28 Define a tabela fato principal usada para análise.
+29 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+30 Define a chave de relacionamento (como as tabelas se conectam).
+31 Fim de uma CTE/subconsulta.
+32 Linha em branco para melhorar legibilidade.
+33 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+34 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+35 Conta registros (volume) na granularidade do GROUP BY.
+36 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+37 Define a tabela fato principal usada para análise.
+38 GROUP BY: define a granularidade da agregação (base para COUNT/SUM).
+39 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+
+📈 Impacto na análise / no dashboard
+Entrega um histograma/ distribuição pronto para dashboard, mostrando concentração de interesse por idade do veículo.
+
+⚠️ Observações e cuidados
+- O denominador do percentual é `count(*) from sales.funnel` (todas as visitas). Se quiser percentual apenas de visitas com produto válido, filtre/ajuste na CTE.
+- A coluna `ordem` garante que as faixas apareçam na sequência correta.
+
+
+
+QUERY 07 — Veículos mais visitados por marca
+============================================
+
+🎯 Objetivo
+Listar veículos mais visitados por marca e modelo, contando o número de visitas.
+
+📌 Saída (colunas)
+brand, model, visitas (#).
+
+🧾 SQL (com numeração de linhas)
+01 -- (Query 7) Veículos mais visitados por marca
+02 -- Colunas: brand, model, visitas (#)
+03 
+04 select
+05 	pro.brand,
+06 	pro.model,
+07 	count(*) as "visitas (#)"
+08 
+09 from sales.funnel as fun
+10 left join sales.products as pro
+11 	on fun.product_id = pro.product_id
+12 group by pro.brand, pro.model
+13 order by pro.brand, pro.model, "visitas (#)"
+
+🔎 Explicação linha a linha
+01 Comentário/documentação da query (descrição e colunas esperadas).
+02 Comentário/documentação da query (descrição e colunas esperadas).
+03 Linha em branco para melhorar legibilidade.
+04 Início do SELECT: define as colunas que serão retornadas nesta etapa.
+05 Linha de lógica/expressão SQL que compõe o cálculo ou formatação do resultado.
+06 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+07 Conta registros (volume) na granularidade do GROUP BY.
+08 Linha em branco para melhorar legibilidade.
+09 Define a tabela fato principal usada para análise.
+10 LEFT JOIN: enriquece a fato com dimensões, sem perder linhas da fato.
+11 Define a chave de relacionamento (como as tabelas se conectam).
+12 Seleciona o modelo do veículo para detalhamento dentro de cada marca.
+13 ORDER BY: organiza saída (ex.: por mês ou por maior volume para ranking).
+
+📈 Impacto na análise / no dashboard
+Identifica os modelos com maior demanda por marca; base para priorização de catálogo, campanhas e análise de interesse do público.
+
+

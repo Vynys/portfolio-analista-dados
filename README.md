@@ -146,9 +146,7 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 - Link para o relatório completo: https://github.com/Vynys/portfolio-analista-dados/tree/main/projetos/Projeto4_Case/relatorio
 - Contexto: Projeto desenvolvido como parte de um **desafio técnico para processo seletivo da JAAR Consult**.  
   Todo o conteúdo é autoral e não representa oficialmente a empresa
-
   ---
-
 # 🗂 Projeto 05 — SQL (PostgreSQL) | Análise de Vendas e Funil 
 
 ## 🧾 Visão geral
@@ -204,6 +202,7 @@ As consultas deste projeto geram:
 ## 📖 Relatório
 - Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/assets/Projeto%20-%20DashboardDeVendas.pdf
 - Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/files/Projeto%20-%20DashboardDeVendas.xlsx
+- Link para o Relatório Completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/files/Projeto05_Relatorio_SQL_Queries.txt
 
 
 ---
@@ -264,6 +263,7 @@ As consultas deste projeto geram:
 ## 📖 Relatório
   * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/assets/Projeto%20-%20PerfilDosLeads.pdf
   * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/files/Projeto%20-%20PerfilDosLeads.xlsx
+  * Link para o Relatório Completo: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/files/Projeto06_Relatorio_SQL_Queries.txt
 
 
 

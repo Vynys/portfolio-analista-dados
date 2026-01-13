@@ -149,54 +149,117 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 
   ---
 
-#  Projeto 05 — Dashboard de Vendas no Excel
-## 🎯 Objetivos do Case
-  * Consolidar KPIs mês a mês: receita, leads, conversão e ticket médio.
-  * Identificar estados, marcas e lojas com maior volume de vendas.
-  * Analisar visitas ao site por dia da semana para entender padrão de tráfego.
-  * Construir um dashboard no Excel com visual limpo e leitura rápida.
+# 🗂 Projeto 05 — SQL (PostgreSQL) | Análise de Vendas e Funil (pgAdmin → Excel)
+
+## 🧾 Visão geral
+Este projeto é **SQL-first**: toda a transformação, cálculo de métricas e consolidação dos dados foi feita no **PostgreSQL**, utilizando **pgAdmin** como interface de desenvolvimento e validação das consultas.  
+O **Excel** foi usado apenas como **camada de apresentação**, para tornar os resultados legíveis (tabelas e gráficos) e facilitar o consumo por stakeholders não técnicos.
+
+## 🧰 Stack e ferramentas
+- PostgreSQL (consultas analíticas)
+- pgAdmin (Query Tool, validação e exportação de resultados)
+- Excel (apresentação / dashboard e relatório em PDF)
+
+## 🗃️ Base de dados (tabelas utilizadas)
+- `sales.funnel` (visitas, funil e datas de conversão/pagamento)
+- `sales.products` (preço, marca e atributos do produto)
+- `sales.customers` (estado do cliente)
+- `sales.stores` (lojas)
+
+## 🎯 Objetivo de negócio
+Construir uma visão gerencial de performance de vendas e funil, respondendo:
+- Como evoluem **leads, vendas e receita** mês a mês?
+- Qual a **conversão** do funil e o **ticket médio**?
+- Quais **estados**, **marcas** e **lojas** puxaram as vendas no mês analisado?
+- Em quais **dias da semana** há maior volume de visitas?
 
 ## 📷 Preview
-  <img width="1741" height="661" alt="image" src="https://github.com/user-attachments/assets/988aa422-bd37-46ce-939e-48ab0c58b47c" />
-  ![projeto5gif](https://github.com/user-attachments/assets/f8480856-3dd0-4ce2-8124-1e62f55630d5)
+  ![projeto6gif](https://github.com/user-attachments/assets/a17025cf-f8bb-45ae-82a2-4296afacd606)
+  <img width="1240" height="719" alt="image" src="https://github.com/user-attachments/assets/4f9c9446-57a3-4701-9842-5ace8e14dfdf" />
 
-## 🚀 Tecnologias Utilizadas
-  * Excel
-  * Power Query
-  * Tabelas Dinâmicas / Gráficos
-  * Git & GitHub para versionamento
 
-## 📊 Resultados e 💡 Insights
-  * KPIs consolidados por mês (receita, leads, conversão e ticket médio).
-  * Rankings de estados, marcas e lojas com maior volume de vendas.
-  * Visão rápida do padrão de visitas por dia da semana.
+
+## 🧠 O que foi feito em SQL (destaques técnicos)
+- **CTEs** para organizar a lógica e garantir rastreabilidade (ex.: `leads`, `payments`)
+- **Agregações** com `COUNT()` e `SUM()` para métricas-chave
+- **Cálculos de KPI** no banco (conversão e ticket médio), com `CAST`/`::float` para evitar divisão inteira
+- **Time intelligence** com `date_trunc('month', ...)` para padronização mensal
+- **Business filtering** por período (ex.: agosto/2021) para rankings de performance
+- **Dimensional joins** (`funnel` ↔ `products/customers/stores`) para enriquecer as análises
+
+## 🧩 Consultas (perguntas respondidas)
+As consultas deste projeto geram:
+1. **Receita, leads, conversão e ticket médio mês a mês**
+2. **Top 5 estados** com mais vendas (mês)
+3. **Top 5 marcas** com mais vendas (mês)
+4. **Top 5 lojas** com mais vendas (mês)
+5. **Dias da semana** com maior número de visitas  
+(As queries estão documentadas no arquivo de consultas do projeto.)
+
+## 📦 Entregáveis
+- Dashboard em Excel (apresentação dos resultados extraídos via SQL)
+- PDF do relatório/dash
+- Scripts SQL (consultas do projeto)
 
 ## 📖 Relatório
-  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/assets/Projeto%20-%20PerfilDosLeads.pdf
-  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/files/Projeto%20-%20PerfilDosLeads.xlsx
+- Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/assets/Projeto%20-%20PerfilDosLeads.pdf
+- Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/files/Projeto%20-%20PerfilDosLeads.xlsx
+
 
 ---
 
 #  Projeto 06 — Perfil dos Leads no Excel
-## 🎯 Objetivos do Case
-  * Analisar o perfil dos leads por gênero, status profissional, faixa etária e faixa salarial.
-  * Avaliar preferências relacionadas a veículos (classificação, idade e modelos mais visitados por marca).
-  * Criar um dashboard no Excel para segmentação e leitura rápida.
+## 🧾 Visão geral
+Este projeto é **SQL-first**: toda a segmentação, cálculos de distribuição (%) e consolidação do perfil dos leads foram feitos no **PostgreSQL**, utilizando **pgAdmin** para desenvolvimento, validação e extração dos resultados.  
+O **Excel** foi usado apenas como **camada de apresentação**, para transformar os resultados do SQL em tabelas e gráficos legíveis para o leitor.
 
+## 🧰 Stack e ferramentas
+- PostgreSQL (consultas analíticas e segmentação)
+- pgAdmin (Query Tool, validação e exportação de resultados)
+- Excel (apresentação / dashboard e relatório em PDF)
+
+## 🗃️ Base de dados (tabelas utilizadas)
+- `sales.customers` (dados do lead: renda, nascimento, status profissional, etc.)
+- `temp_tables.ibge_genders` (mapeamento de gênero por primeiro nome)
+- `sales.funnel` (eventos de visita / navegação)
+- `sales.products` (marca, modelo, ano do veículo)
+
+## 🎯 Objetivo de negócio
+Construir uma visão de **perfil e comportamento** dos leads, respondendo:
+- Qual a distribuição de leads por **gênero**?
+- Qual o **status profissional** predominante e sua participação (%)?
+- Como os leads se distribuem por **faixa etária** e **faixa salarial**?
+- Quais veículos foram mais visitados e como se comportam por **classificação** (novo vs seminovo)?
+- Quais modelos são mais visitados por **marca**?
+  
 ## 📷 Preview
-  <img width="1240" height="719" alt="image" src="https://github.com/user-attachments/assets/435e4b41-f2fa-4fd4-b74f-05aa0f2ab6a4" />
-  ![projeto6gif](https://github.com/user-attachments/assets/2a895e80-2195-4ecc-ba85-c13ceebcb51f)
+  ![projeto5gif](https://github.com/user-attachments/assets/cf47fbe0-569e-432a-9d4d-f7bb920166f7)
+  <img width="1741" height="661" alt="image" src="https://github.com/user-attachments/assets/b58771ec-0bf4-486a-9c96-8a05e6d57e77" />
 
-## 🚀 Tecnologias Utilizadas
-  * Excel
-  * Power Query
-  * Tabelas Dinâmicas / Gráficos
-  * Git & GitHub para versionamento
 
-## 📊 Resultados e 💡 Insights
-  * Perfil demográfico consolidado dos leads (gênero, idade, renda, status).
-  * Visão de interesse por veículos (novo/seminovo/usado, idade do veículo).
-  * Ranking de veículos mais visitados por marca.
+## 🧠 O que foi feito em SQL (destaques técnicos)
+- **CTEs** para organizar regras e manter a consulta legível (ex.: classificação do veículo, faixas)
+- **CASE WHEN** para criar categorias de negócio (faixa etária, faixa salarial, status, classificação)
+- **Cálculo de percentuais** diretamente no banco (`COUNT(*)::float / total`)
+- **Regras de classificação** (ex.: “novo até 2 anos”, “seminovo acima de 2 anos”)
+- **Joins dimensionais** (`customers/funnel/products`) para enriquecer o comportamento de navegação
+- **Ordenação e ranking** para identificar itens mais visitados por marca
+
+## 🧩 Consultas (perguntas respondidas)
+As consultas deste projeto geram:
+1. **Distribuição por gênero** dos leads
+2. **Status profissional** (% de participação)
+3. **Faixa etária** (% de participação)
+4. **Faixa salarial** (% de participação)
+5. **Classificação do veículo visitado** (novo vs seminovo)
+6. **Faixa de idade do veículo visitado** (%)
+7. **Veículos mais visitados por marca**  
+(As queries estão documentadas no arquivo de consultas do projeto.)
+
+## 📦 Entregáveis
+- Dashboard em Excel (apresentação dos resultados extraídos via SQL)
+- PDF do relatório/dash
+- Scripts SQL (consultas do projeto)
 
 ## 📖 Relatório
   * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/assets/Projeto%20-%20DashboardDeVendas.pdf

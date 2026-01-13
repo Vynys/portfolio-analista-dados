@@ -21,7 +21,7 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 - [Projeto 05 — SQL (PostgreSQL) | Vendas e Funil](#-projeto-05--sql-postgresql--vendas-e-funil)
 - [Projeto 06 — SQL (PostgreSQL) | Perfil dos Leads](#-projeto-06--sql-postgresql--perfil-dos-leads)
 
-## 🧭 Visão rápida (tabela resumo)
+## 🧭 Visão rápida 
 
 | # | Projeto | Tema | Stack | Técnicas-chave | Links |
 |---|---|---|---|---|---|

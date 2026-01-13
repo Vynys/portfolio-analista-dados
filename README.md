@@ -157,7 +157,8 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
   * Construir um dashboard no Excel com visual limpo e leitura rápida.
 
 ## 📷 Preview
-
+  <img width="1741" height="661" alt="image" src="https://github.com/user-attachments/assets/988aa422-bd37-46ce-939e-48ab0c58b47c" />
+  ![projeto5gif](https://github.com/user-attachments/assets/f8480856-3dd0-4ce2-8124-1e62f55630d5)
 
 ## 🚀 Tecnologias Utilizadas
   * Excel
@@ -171,8 +172,8 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
   * Visão rápida do padrão de visitas por dia da semana.
 
 ## 📖 Relatório
-  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_ExcelVendas/relatorio/Projeto5_Dashboard_Vendas.pdf
-  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_ExcelVendas/Projeto5_Dashboard_Vendas.xlsx
+  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/assets/Projeto%20-%20PerfilDosLeads.pdf
+  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/files/Projeto%20-%20PerfilDosLeads.xlsx
 
 ---
 
@@ -183,7 +184,8 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
   * Criar um dashboard no Excel para segmentação e leitura rápida.
 
 ## 📷 Preview
-
+  <img width="1240" height="719" alt="image" src="https://github.com/user-attachments/assets/435e4b41-f2fa-4fd4-b74f-05aa0f2ab6a4" />
+  ![projeto6gif](https://github.com/user-attachments/assets/2a895e80-2195-4ecc-ba85-c13ceebcb51f)
 
 ## 🚀 Tecnologias Utilizadas
   * Excel
@@ -197,8 +199,8 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
   * Ranking de veículos mais visitados por marca.
 
 ## 📖 Relatório
-  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_ExcelLeads/relatorio/Projeto6_Perfil_Leads.pdf
-  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_ExcelLeads/Projeto6_Perfil_Leads.xlsx
+  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/assets/Projeto%20-%20DashboardDeVendas.pdf
+  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/files/Projeto%20-%20DashboardDeVendas.xlsx
 
 
 

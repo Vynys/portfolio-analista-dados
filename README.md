@@ -149,7 +149,7 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 
   ---
 
-# 🗂 Projeto 05 — SQL (PostgreSQL) | Análise de Vendas e Funil (pgAdmin → Excel)
+# 🗂 Projeto 05 — SQL (PostgreSQL) | Análise de Vendas e Funil 
 
 ## 🧾 Visão geral
 Este projeto é **SQL-first**: toda a transformação, cálculo de métricas e consolidação dos dados foi feita no **PostgreSQL**, utilizando **pgAdmin** como interface de desenvolvimento e validação das consultas.  
@@ -202,8 +202,8 @@ As consultas deste projeto geram:
 - Scripts SQL (consultas do projeto)
 
 ## 📖 Relatório
-- Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/assets/Projeto%20-%20PerfilDosLeads.pdf
-- Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/files/Projeto%20-%20PerfilDosLeads.xlsx
+- Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/assets/Projeto%20-%20DashboardDeVendas.pdf
+- Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto5_Case/files/Projeto%20-%20DashboardDeVendas.xlsx
 
 
 ---
@@ -262,8 +262,8 @@ As consultas deste projeto geram:
 - Scripts SQL (consultas do projeto)
 
 ## 📖 Relatório
-  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/assets/Projeto%20-%20DashboardDeVendas.pdf
-  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/files/Projeto%20-%20DashboardDeVendas.xlsx
+  * Link para o PDF: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/assets/Projeto%20-%20PerfilDosLeads.pdf
+  * Link para o Excel: https://github.com/Vynys/portfolio-analista-dados/blob/main/projetos/Projeto6_Case/files/Projeto%20-%20PerfilDosLeads.xlsx
 
 
 

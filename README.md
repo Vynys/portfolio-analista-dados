@@ -13,9 +13,25 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 
 
 ## Sumário
-- [Projeto 01 — Dashboard no Power BI](#projeto-01--dashboard-no-power-bi)
-- [Projeto 02 — Dashboard de Indicadores](#projeto-02---dashboard-de-indicadores)
-- [Projeto 03 — Dashboard com Python](#projeto-03---dashboard-com-python)
+
+- [Projeto 01 — Dashboard no Power BI](#-projeto-01--dashboard-no-power-bi)
+- [Projeto 02 — Dashboard de Indicadores](#-projeto-02--dashboard-de-indicadores)
+- [Projeto 03 — Dashboard com Python](#-projeto-03--dashboard-com-python)
+- [Projeto 04 — Desafio Técnico BI Jr (JAAR Consult)](#-projeto-04--desafio-técnico-bi-jr-jaar-consult)
+- [Projeto 05 — SQL (PostgreSQL) | Vendas e Funil](#-projeto-05--sql-postgresql--vendas-e-funil)
+- [Projeto 06 — SQL (PostgreSQL) | Perfil dos Leads](#-projeto-06--sql-postgresql--perfil-dos-leads)
+
+## 🧭 Visão rápida (tabela resumo)
+
+| # | Projeto | Tema | Stack | Técnicas-chave | Entregáveis | Links |
+|---|---|---|---|---|---|---|
+| 01 | 📊 Dashboard no Power BI | RH: funcionários, dependentes e salários | Power BI • Excel/CSV | Modelagem • KPIs • Segmentações (cargo/setor/UF) | 📄 Relatório (.docx) | 📁 [Pasta](projetos/Projeto1_Func/) • 📄 [Relatório](projetos/Projeto1_Func/relatorio/Projeto1_Func.docx) |
+| 02 | 📈 Dashboard de Indicadores | KPIs e metas (visão executiva) | Power BI • DAX • Excel/CSV | DAX • KPIs • Análise de desvios vs meta | 📄 Relatórios (.docx) | 📁 [Pasta](projetos/Projeto2_Case/) • 📄 [Dashboard](projetos/Projeto2_Case/relatorio/Projeto02-%20DashboarddeIndicadores.docx) • 🧾 [Case](projetos/Projeto2_Case/relatorio/Case%20Anal%C3%ADtico.docx) |
+| 03 | 🐍 Dashboard com Python | Financeiro: coleta/atualização e dashboard | Python • Pandas • yfinance • Power BI | ETL em Python • Integração Python ↔ Power BI • Automação | 📄 Relatório (.docx) | 📁 [Pasta](projetos/Projeto3_Case/) • 📄 [Relatório](projetos/Projeto3_Case/relatorio/Doc_DashPython.docx) |
+| 04 | 🏆 Desafio Técnico BI Jr (JAAR) | Vendas: análise, storytelling e governança | Power BI • DAX | Star Schema • Time Intelligence • RLS • Storytelling | 📁 Relatório (pasta) | 📁 [Pasta](projetos/Projeto4_Case/) • 📄 [Relatório](projetos/Projeto4_Case/relatorio/) |
+| 05 | 🗄️ SQL (PostgreSQL) \| Vendas e Funil | KPI mensal + rankings (estado/marca/loja) | PostgreSQL • pgAdmin • Excel | CTEs • Joins • `date_trunc` • KPIs no banco | 📄 PDF • 📊 Excel • 🧾 Relatório SQL (.txt) | 📁 [Pasta](projetos/Projeto5_Case/) • 📄 [PDF](projetos/Projeto5_Case/assets/Projeto%20-%20DashboardDeVendas.pdf) • 📊 [Excel](projetos/Projeto5_Case/files/Projeto%20-%20DashboardDeVendas.xlsx) • 🧾 [Relatório SQL](projetos/Projeto5_Case/files/Projeto05_Relatorio_SQL_Queries.txt) |
+| 06 | 🧠 SQL (PostgreSQL) \| Perfil dos Leads | Segmentação e distribuição (%) de leads | PostgreSQL • pgAdmin • Excel | CASE WHEN • Percentuais • Classificações • Ranking por marca | 📄 PDF • 📊 Excel • 🧾 Relatório SQL (.txt) | 📁 [Pasta](projetos/Projeto6_Case/) • 📄 [PDF](projetos/Projeto6_Case/assets/Projeto%20-%20PerfilDosLeads.pdf) • 📊 [Excel](projetos/Projeto6_Case/files/Projeto%20-%20PerfilDosLeads.xlsx) • 🧾 [Relatório SQL](projetos/Projeto6_Case/files/Projeto06_Relatorio_SQL_Queries.txt) |
+
 
 
 ---
@@ -207,7 +223,7 @@ As consultas deste projeto geram:
 
 ---
 
-#  Projeto 06 — Perfil dos Leads no Excel
+# 🗂 Projeto 06 — SQL (PostgreSQL) | Perfil dos Leads 
 ## 🧾 Visão geral
 Este projeto é **SQL-first**: toda a segmentação, cálculos de distribuição (%) e consolidação do perfil dos leads foram feitos no **PostgreSQL**, utilizando **pgAdmin** para desenvolvimento, validação e extração dos resultados.  
 O **Excel** foi usado apenas como **camada de apresentação**, para transformar os resultados do SQL em tabelas e gráficos legíveis para o leitor.

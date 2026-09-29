@@ -170,8 +170,9 @@ Projeto07_Aurora_Analytics/
 
 ## Arquivo Power BI
 
-Recomendação: disponibilizar o `.pbix` final em uma GitHub Release (`aurora-v1.0.0`) para não adicionar um binário pesado ao histórico normal do repositório.
+O arquivo `.pbix` final está disponível na release oficial do projeto:
 
+**[Baixar Aurora_Varejo_Analytics.pbix — Release v1.0](../../releases/tag/aurora-v1.0.0)**
 ## Competências demonstradas
 
 **BigQuery • SQL • ELT • Star Schema • Power BI • DAX • Power Query • Data Visualization • Storytelling • Data Quality • Git/GitHub**

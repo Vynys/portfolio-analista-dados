@@ -632,7 +632,27 @@ Também foram implementadas medidas para:
 
 ## 📷 Preview
 
-![Aurora Analytics Dashboard](projetos/Projeto07_Aurora_Analytics/assets/dashboard-aurora.png)
+### Visão Geral
+
+![ServiceOps Analytics - Visão Geral](projetos/Projeto08_ServiceOps_Analytics/assets/visao-geral.jpeg)
+
+### Demandas
+
+![ServiceOps Analytics - Demandas](projetos/Projeto08_ServiceOps_Analytics/assets/demandas.jpeg)
+
+### Backlog
+
+![ServiceOps Analytics - Backlog](projetos/Projeto08_ServiceOps_Analytics/assets/backlog.jpeg)
+
+### Ambientes
+
+![ServiceOps Analytics - Ambientes](projetos/Projeto08_ServiceOps_Analytics/assets/ambientes.jpeg)
+
+### Melhorias
+
+![ServiceOps Analytics - Melhorias](projetos/Projeto08_ServiceOps_Analytics/assets/melhorias.jpeg)
+
+> Todos os dados exibidos neste projeto são 100% sintéticos e foram criados exclusivamente para demonstração e portfólio.
 
 ---
 

@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-09-25T00:02:26.936Z",
+  "mode": "demo",
+  "synthetic": true,
+  "records": {
+    "main": 1234,
+    "backlog": 24,
+    "improvements": 8
+  },
+  "note": "Todos os dados deste repositório são fictícios e gerados deterministicamente."
+}

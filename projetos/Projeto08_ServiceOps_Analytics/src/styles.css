@@ -1,0 +1,2544 @@
+:root{
+  font-family:"Inter Variable","Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:#eefcfc;
+  background:#031c1f;
+  font-synthesis:none;
+  --bg:#031c1f;
+  --bg2:#04272a;
+  --panel:#073438;
+  --panel2:#082e32;
+  --line:#0d5a60;
+  --text:#f4ffff;
+  --muted:#9ec1c3;
+  --green:#25e4ad;
+  --cyan:#31d9ff;
+  --blue:#2f9fff;
+  --yellow:#ffd341;
+  --pink:#ff5b77;
+  --red:#ff6b7a;
+  --shadow:0 10px 28px rgba(0,0,0,.18);
+}
+
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  margin:0;
+  min-width:1180px;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(12,99,91,.18),transparent 30%),
+    linear-gradient(135deg,#042529 0%,#031719 100%);
+}
+button,select{font:inherit}
+button{color:inherit}
+
+.app-shell{min-height:100vh;display:grid;grid-template-columns:190px 1fr}
+.sidebar{
+  position:fixed;inset:0 auto 0 0;width:190px;padding:18px 12px 16px;
+  border-right:1px solid rgba(38,207,174,.18);
+  background:linear-gradient(180deg,#052b2e,#031c1f 70%);z-index:5;
+}
+.brand{display:flex;align-items:center;gap:8px}
+.brand-mark{width:35px;height:35px;border:2px solid var(--green);color:var(--green);border-radius:50%;display:grid;place-items:center;font-weight:800}
+.brand b{font-size:20px;letter-spacing:.4px}
+.brand small{display:block;font-size:8px;color:var(--green);font-weight:800;letter-spacing:.8px}
+.brand-side{padding:0 6px 30px}
+.sidebar nav{display:grid;gap:7px}
+.nav-item{border:0;background:transparent;color:#d9eeee;display:flex;gap:11px;align-items:center;padding:12px 11px;border-radius:6px;text-align:left;cursor:pointer}
+.nav-item:hover{background:#0a3437}
+.nav-item.active{background:var(--green);color:#032421;font-weight:800}
+.nav-icon{font-size:17px;width:18px;text-align:center}
+.sidebar-foot{position:absolute;bottom:17px;left:20px}
+.sidebar-foot b,.sidebar-foot small{display:block}
+.sidebar-foot small{font-size:9px;color:var(--muted);margin-top:3px}
+
+.main-area{grid-column:2;min-height:100vh;padding:0 22px 28px;position:relative;overflow:hidden}
+.main-area:before{content:"";position:absolute;right:-120px;bottom:-120px;width:380px;height:380px;border:1px solid rgba(37,228,173,.17);transform:rotate(45deg);pointer-events:none}
+.topbar{height:74px;border-bottom:1px solid rgba(37,228,173,.34);display:flex;align-items:center;position:relative;z-index:2}
+.brand-top{display:none}
+.brand-divider{width:1px;height:34px;background:#176267;margin:0 7px}
+.tagline{font-size:8px;color:#b7d8da;letter-spacing:.8px;line-height:1.45}
+.top-controls{margin-left:auto;margin-right:145px;display:flex;gap:10px;align-items:center}
+.top-controls select{min-width:230px;background:#062d31;color:#eaffff;border:1px solid #0f6971;border-radius:6px;padding:9px 35px 9px 12px}
+.top-controls select+select{min-width:150px}
+.portfolio{position:absolute;right:0;top:24px;font-weight:700}
+
+.page-head{display:flex;align-items:flex-end;padding:14px 2px 9px}
+.page-head h1{font-size:25px;margin:0 0 1px}
+.page-head p{margin:0;color:#d3ecec;font-size:13px}
+.page-head p span{color:var(--green)}
+.page-content{position:relative;z-index:1}
+
+.kpi-grid{display:grid;gap:9px;margin-bottom:12px}
+.kpi-grid.five{grid-template-columns:repeat(5,1fr)}
+.kpi-grid.four{grid-template-columns:repeat(4,1fr)}
+.kpi,.panel,.env-card{
+  background:linear-gradient(180deg,rgba(8,58,63,.96),rgba(5,42,46,.96));
+  border:1px solid rgba(23,119,126,.62);border-radius:7px;box-shadow:var(--shadow);
+}
+.kpi{padding:13px;min-height:104px;text-align:left;width:100%}
+button.kpi{appearance:none}
+.kpi-clickable{cursor:pointer;transition:border-color .18s ease,transform .18s ease,background .18s ease}
+.kpi-clickable:hover{border-color:rgba(37,228,173,.85);background:linear-gradient(180deg,rgba(9,70,71,.98),rgba(5,46,49,.98));transform:translateY(-1px)}
+.kpi-clickable:focus-visible,.env-card-clickable:focus-visible,.modal-close:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.kpi-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.kpi-open,.env-open{color:var(--green);font-size:16px;line-height:1}
+.kpi-value{font-size:24px;font-weight:850;margin-bottom:4px}
+.kpi.pink .kpi-value{color:var(--pink)}
+.kpi.green .kpi-value{color:#fff}
+.kpi-label{font-size:12px}
+.kpi-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px;min-height:18px}
+.kpi-sub{font-size:9px;color:var(--yellow);margin-left:auto}
+.kpi-delta{font-size:11px;font-weight:800;color:var(--cyan)}
+.kpi-delta.better,.better{color:var(--green)!important}
+.kpi-delta.worse,.worse{color:var(--red)!important}
+.kpi-delta.neutral,.neutral{color:var(--cyan)!important}
+.kpi-compare-label{font-size:9px;color:var(--muted)}
+
+.panel{padding:11px 13px;min-width:0}
+.panel h3{font-size:13px;margin:0 0 9px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.overview-charts{grid-template-columns:1.25fr .9fr}
+.chart-box{height:235px}
+
+.tabs{display:flex;gap:5px;margin-bottom:9px}
+.tab{border:1px solid #0f5b61;background:#072f33;color:#d6eeee;padding:8px 18px;border-radius:5px;cursor:pointer}
+.tab.active{background:var(--green);color:#03231f;font-weight:800}
+
+.panel-title-row{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.panel-title-row span{font-size:10px;color:var(--green);white-space:nowrap}
+.comparison-panel{margin-bottom:10px}
+.comparison-table td:nth-child(n+2),.comparison-table th:nth-child(n+2){text-align:right}
+.comparison-table tbody tr:last-child{background:rgba(37,228,173,.055)}
+.comparison-table tbody tr:last-child td{font-weight:650}
+
+.backlog-charts .chart-box{height:185px}
+.table-panel{padding-bottom:8px;margin-bottom:10px}
+.table-wrap{overflow:auto}
+.table-wrap table{width:100%;border-collapse:collapse;font-size:11px}
+.table-wrap th{color:#cfe8e9;text-align:left;padding:8px;border-bottom:1px solid #15636a;font-weight:700;white-space:nowrap}
+.table-wrap td{padding:8px;border-bottom:1px solid rgba(25,94,101,.34);vertical-align:middle}
+.truncate{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.truncate.wide{max-width:430px}
+.age-pill{background:var(--yellow);color:#282300;font-weight:800;padding:3px 6px;border-radius:3px}
+.status{padding:3px 6px;border-radius:3px;font-size:9px;white-space:nowrap}
+.status.blue{background:#164f80;color:#aadeff}
+.status.green{background:#0e7259;color:#b9ffe9}
+.status.yellow{background:#6f5a0c;color:#ffe981}
+.status.muted{background:#314649;color:#dceeee}
+
+.environment-layout{display:grid;grid-template-columns:1.45fr .85fr;grid-template-areas:"cards compare" "chart chart";gap:10px}
+.env-cards{grid-area:cards;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.env-card{padding:11px;min-height:270px;text-align:left;width:100%}
+button.env-card{appearance:none}
+.env-card-clickable{cursor:pointer;transition:border-color .18s ease,transform .18s ease,background .18s ease}
+.env-card-clickable:hover{border-color:rgba(37,228,173,.85);transform:translateY(-1px)}
+.env-head{display:flex;align-items:center;gap:7px;font-size:12px}
+.env-head .env-open{margin-left:auto}
+.env-icon{color:var(--green);font-size:18px}
+.env-main{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+.env-main strong{font-size:26px;color:#ff8cda}
+.sla-circle{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:rgba(37,228,173,.18);border:1px solid rgba(37,228,173,.25);font-size:10px;font-weight:800}
+.sla-circle small{display:block;font-size:8px;color:var(--green)}
+.env-card>small{font-size:9px;color:#bcd4d5}
+.env-variation{display:flex;align-items:center;gap:6px;margin-top:10px;color:var(--muted);font-size:9px}
+.env-hours{font-size:16px;font-weight:700;margin-top:18px}
+.env-hours small{display:block;font-size:9px;color:#bcd4d5;margin-left:18px}
+.env-bottom{display:flex;justify-content:space-between;margin-top:18px;color:#aac6c7;font-size:9px}
+.env-bottom b{display:block;color:#eefefe;font-size:10px;margin-top:3px}
+.compare{grid-area:compare}
+.env-evolution{grid-area:chart}
+.env-evolution .chart-box{height:180px}
+.good{color:var(--green);font-weight:800}
+.lower .chart-box{height:190px}
+
+.new-button{background:var(--green);color:#05241f;border:0;border-radius:5px;padding:9px 13px;font-weight:800}
+.new-button:disabled{opacity:.85}
+.loading,.error-box{max-width:720px;margin:80px auto;padding:30px;background:#073438;border:1px solid #0d5a60;border-radius:10px}
+.loading{text-align:center}
+.error-box code{color:#79f5d4}
+footer{display:flex;flex-direction:column;margin-top:17px;font-size:11px}
+footer small{color:var(--muted);font-size:9px;margin-top:2px}
+
+.metric-modal-backdrop{
+  position:fixed;inset:0;z-index:1000;background:rgba(0,10,12,.78);backdrop-filter:blur(5px);
+  display:flex;align-items:center;justify-content:center;padding:28px;
+}
+.metric-modal{
+  width:min(1120px,calc(100vw - 56px));max-height:calc(100vh - 56px);overflow:auto;
+  background:linear-gradient(155deg,#062e32 0%,#031c1f 100%);
+  border:1px solid rgba(37,228,173,.42);border-radius:12px;box-shadow:0 28px 80px rgba(0,0,0,.5);
+  padding:20px;
+}
+.metric-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:14px;border-bottom:1px solid rgba(32,125,130,.34)}
+.metric-modal-head h2{font-size:24px;margin:3px 0 2px}
+.metric-modal-head p{font-size:11px;color:var(--muted);margin:0}
+.modal-eyebrow{font-size:9px;letter-spacing:1.3px;color:var(--green);font-weight:800}
+.modal-close{border:1px solid #17676d;background:#07373b;color:#eaffff;width:36px;height:36px;border-radius:7px;font-size:24px;line-height:1;cursor:pointer}
+.modal-close:hover{border-color:var(--green)}
+.modal-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.modal-stat{min-width:0;background:#07363a;border:1px solid rgba(23,119,126,.55);border-radius:7px;padding:11px}
+.modal-stat.primary{border-color:rgba(37,228,173,.62);background:#08433f}
+.modal-stat span{display:block;color:var(--muted);font-size:9px;margin-bottom:6px}
+.modal-stat b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-stat.primary b{font-size:21px;color:#fff}
+.modal-main-grid{display:grid;grid-template-columns:1.55fr .85fr;gap:10px;margin-bottom:10px}
+.modal-panel{background:rgba(6,48,52,.82);border:1px solid rgba(23,119,126,.52);border-radius:8px;padding:12px;min-width:0}
+.modal-panel h3{font-size:12px;margin:0 0 10px}
+.modal-chart-box{height:260px}
+.breakdown-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.breakdown-item{background:rgba(4,36,39,.7);border:1px solid rgba(24,97,103,.45);border-radius:6px;padding:10px;min-width:0}
+.breakdown-item span{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}
+.breakdown-item b{font-size:14px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal-table-panel{margin-bottom:0}
+
+@media(max-width:1280px){
+  body{min-width:1024px}
+  .app-shell{grid-template-columns:165px}
+  .sidebar{width:165px}
+  .kpi-value{font-size:20px}
+  .env-cards{grid-template-columns:repeat(2,1fr)}
+  .environment-layout{grid-template-columns:1fr;grid-template-areas:"cards" "compare" "chart"}
+  .top-controls{margin-right:125px}
+  .modal-kpi-grid{grid-template-columns:repeat(4,1fr)}
+}
+
+@media(max-width:900px){
+  .metric-modal-backdrop{padding:14px}
+  .metric-modal{width:calc(100vw - 28px);max-height:calc(100vh - 28px)}
+  .modal-kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .modal-main-grid{grid-template-columns:1fr}
+}
+
+/* =========================================================
+   V3 — TIPOGRAFIA, HIERARQUIA, ÍCONES E LEGIBILIDADE
+   ========================================================= */
+
+:root{
+  font-family:"Inter Variable","Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --panel-highlight:rgba(37,228,173,.10);
+  --panel-cyan:rgba(49,217,255,.10);
+}
+
+body,
+button,
+input,
+select,
+textarea{
+  font-family:"Inter Variable","Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:14px;
+  line-height:1.45;
+  letter-spacing:0;
+}
+
+button{font-weight:500}
+svg{display:block;pointer-events:none}
+.ui-icon{width:18px;height:18px}
+
+/* Navegação */
+.sidebar{width:202px;padding:20px 13px 17px}
+.app-shell{grid-template-columns:202px 1fr}
+.nav-item{
+  min-height:45px;
+  gap:12px;
+  padding:11px 12px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:620;
+}
+.nav-item.active{font-weight:780}
+.nav-icon{width:22px;height:22px;display:grid;place-items:center}
+.nav-icon-svg{width:19px;height:19px;stroke-width:1.9}
+.brand-mark{width:38px;height:38px;font-size:17px}
+.brand b{font-size:21px;font-weight:800;letter-spacing:.2px}
+.brand small{font-size:8.5px}
+.sidebar-foot b{font-size:12px}
+.sidebar-foot small{font-size:9.5px}
+
+/* Cabeçalho */
+.main-area{grid-column:2;padding:0 24px 30px}
+.topbar{height:78px}
+.top-controls select{
+  min-height:40px;
+  border-radius:8px;
+  font-size:12.5px;
+  font-weight:620;
+  padding:9px 38px 9px 13px;
+}
+.portfolio{display:flex;align-items:center;gap:7px;top:26px;font-size:12.5px;font-weight:750}
+.portfolio-icon{width:18px;height:18px;color:#a8d9eb}
+.page-head{padding:17px 2px 12px}
+.page-head h1{
+  font-size:30px;
+  line-height:1.08;
+  font-weight:790;
+  letter-spacing:-.55px;
+  margin:0 0 4px;
+}
+.page-head p{font-size:14px;font-weight:500;color:#d5e9ea}
+
+/* Cards de KPI */
+.kpi-grid{gap:10px;margin-bottom:13px}
+.kpi,.panel,.env-card{border-radius:9px}
+.kpi{
+  min-height:128px;
+  padding:15px 16px 14px;
+}
+.kpi-main{display:flex;align-items:flex-start;gap:12px;min-width:0}
+.kpi-copy{min-width:0}
+.kpi-icon-box{
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  color:var(--green);
+  background:var(--panel-highlight);
+  border:1px solid rgba(37,228,173,.22);
+}
+.kpi.pink .kpi-icon-box{color:#ff7a91;background:rgba(255,91,119,.09);border-color:rgba(255,91,119,.18)}
+.kpi.green .kpi-icon-box{color:var(--green)}
+.kpi-icon-svg{width:21px;height:21px;stroke-width:1.95}
+.kpi-value{
+  font-size:30px;
+  line-height:1.04;
+  font-weight:820;
+  letter-spacing:-.7px;
+  margin-bottom:6px;
+}
+.kpi-label{font-size:13px;line-height:1.25;font-weight:680;color:#edfafa}
+.kpi-meta{gap:8px;margin-top:13px;min-height:19px}
+.kpi-delta{font-size:12px;font-weight:800}
+.kpi-compare-label{font-size:10.5px;font-weight:520;color:#a9c7c8}
+.kpi-sub{font-size:10.5px;font-weight:720}
+.kpi-open{
+  width:29px;
+  height:29px;
+  flex:0 0 29px;
+  display:grid;
+  place-items:center;
+  border-radius:8px;
+  color:var(--green);
+  background:rgba(37,228,173,.075);
+  border:1px solid rgba(37,228,173,.13);
+}
+.open-icon{width:16px;height:16px}
+.kpi-clickable:hover .kpi-icon-box{background:rgba(37,228,173,.17);border-color:rgba(37,228,173,.42)}
+.kpi-clickable:hover .kpi-icon-svg{transform:scale(1.06)}
+.kpi-icon-svg,.panel-icon-svg,.env-icon-svg{transition:transform .18s ease}
+
+/* Painéis e gráficos */
+.panel{padding:14px 16px}
+.grid-2{gap:11px;margin-bottom:11px}
+.chart-box{height:250px}
+.panel-heading{
+  min-height:32px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:12px;
+}
+.panel-heading h3{
+  min-width:0;
+  margin:0;
+  font-size:14px;
+  line-height:1.25;
+  font-weight:730;
+  letter-spacing:-.1px;
+}
+.panel-icon{
+  width:31px;
+  height:31px;
+  flex:0 0 31px;
+  display:grid;
+  place-items:center;
+  border-radius:8px;
+  color:var(--cyan);
+  background:var(--panel-cyan);
+  border:1px solid rgba(49,217,255,.16);
+}
+.panel-icon-svg{width:16.5px;height:16.5px;stroke-width:1.9}
+.panel-meta{
+  margin-left:auto;
+  font-size:10.5px;
+  font-weight:720;
+  color:var(--green);
+  white-space:nowrap;
+}
+.panel>h3{font-size:14px;font-weight:730;margin:0 0 12px}
+.panel-title-row{margin-bottom:10px}
+.panel-title-row h3{font-size:14px;font-weight:730}
+.panel-title-row span{font-size:10.5px;font-weight:700}
+
+/* Abas */
+.tabs{gap:7px;margin-bottom:11px}
+.tab{
+  min-height:38px;
+  padding:8px 20px;
+  border-radius:7px;
+  font-size:12.5px;
+  font-weight:650;
+}
+.tab.active{font-weight:790}
+
+/* Tabelas */
+.table-wrap table{font-size:12px}
+.table-wrap th{
+  padding:10px 9px;
+  font-size:11px;
+  font-weight:760;
+  letter-spacing:.12px;
+}
+.table-wrap td{
+  padding:10px 9px;
+  font-size:12px;
+  line-height:1.35;
+  font-weight:470;
+}
+.comparison-table tbody tr:last-child td{font-weight:720}
+.status{font-size:10px;font-weight:650;padding:4px 7px;border-radius:4px}
+.age-pill{font-size:10.5px;padding:4px 7px;border-radius:4px}
+
+/* Backlog */
+.backlog-charts .chart-box{height:210px}
+
+/* Ambientes */
+.env-cards{gap:10px}
+.env-card{padding:14px;min-height:286px;border-radius:9px}
+.env-head{gap:9px;font-size:13.5px;font-weight:740}
+.env-icon-box{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  color:var(--green);
+  background:rgba(37,228,173,.10);
+  border:1px solid rgba(37,228,173,.20);
+}
+.env-icon-svg{width:18px;height:18px;stroke-width:1.9}
+.env-open{margin-left:auto;width:26px;height:26px;display:grid;place-items:center}
+.env-main{margin-top:19px}
+.env-main>div{display:flex;flex-direction:column;gap:3px}
+.env-main strong{font-size:31px;font-weight:820;line-height:1;color:#ff8cda;letter-spacing:-.5px}
+.env-main>div small{font-size:10.5px;color:#bad3d4;font-weight:600}
+.sla-circle{width:64px;height:64px;font-size:11px;font-weight:820}
+.sla-circle small{font-size:8.5px;font-weight:750}
+.env-variation{font-size:10.5px;margin-top:12px;gap:7px}
+.env-hours{display:flex;align-items:center;gap:9px;margin-top:19px;font-size:18px;font-weight:760}
+.env-clock-icon{width:18px;height:18px;color:var(--green)}
+.env-hours>span{display:flex;align-items:baseline;gap:6px}
+.env-hours small{display:inline;font-size:9.5px;margin:0;color:#aec8c9;font-weight:600}
+.env-bottom{font-size:10px;margin-top:20px}
+.env-bottom b{font-size:12.5px;font-weight:720;margin-top:4px}
+.env-evolution .chart-box{height:210px}
+
+/* Melhorias */
+.lower .chart-box{height:215px}
+.new-button{min-height:39px;border-radius:7px;font-size:12px}
+
+/* Modal de detalhamento */
+.metric-modal{width:min(1180px,calc(100vw - 56px));padding:22px 23px;border-radius:13px}
+.metric-modal-head{padding-bottom:16px}
+.metric-modal-title-wrap{display:flex;align-items:flex-start;gap:13px}
+.metric-modal-icon{
+  width:43px;
+  height:43px;
+  flex:0 0 43px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  color:var(--green);
+  background:rgba(37,228,173,.11);
+  border:1px solid rgba(37,228,173,.22);
+}
+.metric-modal-icon-svg{width:22px;height:22px}
+.metric-modal-head h2{font-size:28px;font-weight:790;letter-spacing:-.45px;margin:2px 0 3px}
+.metric-modal-head p{font-size:12.5px;font-weight:520}
+.modal-eyebrow{font-size:9.5px;font-weight:820;letter-spacing:1.35px}
+.modal-close{width:39px;height:39px;display:grid;place-items:center;border-radius:9px;padding:0}
+.modal-close-icon{width:18px;height:18px}
+.modal-kpi-grid{gap:9px;margin:16px 0}
+.modal-stat{padding:12px 13px;border-radius:8px}
+.modal-stat span{font-size:10.5px;font-weight:600;margin-bottom:7px}
+.modal-stat b{font-size:17px;font-weight:750}
+.modal-stat.primary b{font-size:24px;font-weight:820}
+.modal-main-grid{gap:11px;margin-bottom:11px}
+.modal-panel{padding:14px;border-radius:9px}
+.modal-panel .panel-heading{margin-bottom:12px}
+.modal-chart-box{height:285px}
+.breakdown-grid{gap:9px}
+.breakdown-item{padding:11px;border-radius:7px}
+.breakdown-item span{font-size:10px;font-weight:600;margin-bottom:6px}
+.breakdown-item b{font-size:15px;font-weight:740}
+
+/* Loading e rodapé */
+.loading,.error-box{font-size:14px}
+footer{font-size:12px}
+footer small{font-size:9.5px}
+
+@media(max-width:1280px){
+  body{min-width:1024px}
+  .app-shell{grid-template-columns:176px 1fr}
+  .sidebar{width:176px}
+  .main-area{grid-column:2;padding-left:18px;padding-right:18px}
+  .kpi{padding:13px;min-height:122px}
+  .kpi-icon-box{width:37px;height:37px;flex-basis:37px}
+  .kpi-value{font-size:25px}
+  .kpi-label{font-size:12px}
+  .top-controls{margin-right:125px}
+}
+.new-button{display:inline-flex;align-items:center;gap:7px}
+.button-icon{width:15px;height:15px}
+
+/* =========================================================
+   V6 — SINGLE PAGE, NAVEGAÇÃO POR SCROLL E SCROLLSPY
+   ========================================================= */
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:96px;
+}
+
+body{
+  background:
+    radial-gradient(circle at 82% 8%,rgba(12,99,91,.17),transparent 28%),
+    linear-gradient(135deg,#042529 0%,#031719 100%);
+}
+
+.main-area{
+  overflow:visible;
+  padding-bottom:42px;
+}
+
+.sticky-topbar{
+  position:sticky;
+  top:0;
+  z-index:40;
+  height:78px;
+  margin:0 -24px;
+  padding:0 24px;
+  background:rgba(3,28,31,.90);
+  border-bottom:1px solid rgba(37,228,173,.28);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+.topbar-context{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#edfafa;
+  font-size:13px;
+  font-weight:750;
+  letter-spacing:.1px;
+}
+
+.context-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 0 5px rgba(37,228,173,.09);
+}
+
+.one-page-content{
+  position:relative;
+  z-index:1;
+}
+
+.dashboard-section{
+  position:relative;
+  scroll-margin-top:94px;
+  padding:29px 2px 43px;
+  border-bottom:1px solid rgba(37,228,173,.14);
+}
+
+.dashboard-section:first-child{
+  padding-top:22px;
+}
+
+.dashboard-section:last-child{
+  border-bottom:0;
+  padding-bottom:22px;
+}
+
+.dashboard-section::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(37,228,173,.34),rgba(49,217,255,.10),transparent 72%);
+  pointer-events:none;
+}
+
+.dashboard-section:last-child::after{
+  display:none;
+}
+
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:17px;
+}
+
+.section-title-wrap{
+  min-width:0;
+}
+
+.section-eyebrow{
+  display:block;
+  margin-bottom:5px;
+  color:var(--green);
+  font-size:10px;
+  line-height:1;
+  font-weight:820;
+  letter-spacing:1.25px;
+}
+
+.section-head h2{
+  margin:0 0 4px;
+  color:#f4ffff;
+  font-size:31px;
+  line-height:1.08;
+  font-weight:800;
+  letter-spacing:-.6px;
+}
+
+.section-head p{
+  margin:0;
+  color:#d0e6e7;
+  font-size:14px;
+  font-weight:510;
+}
+
+.section-head p span{
+  color:var(--green);
+}
+
+.section-controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.section-body{
+  min-width:0;
+}
+
+.section-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:11px;
+}
+
+.section-toolbar .tabs{
+  margin-bottom:0;
+}
+
+.inline-filter{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#a8c6c8;
+  font-size:11px;
+  font-weight:650;
+}
+
+.inline-filter select{
+  min-width:180px;
+  min-height:38px;
+  padding:8px 34px 8px 11px;
+  border:1px solid #0f6971;
+  border-radius:8px;
+  color:#eaffff;
+  background:#062d31;
+  font-size:12px;
+  font-weight:650;
+}
+
+/* Sidebar acompanha a seção ativa */
+.sidebar nav{
+  position:relative;
+}
+
+.nav-item{
+  position:relative;
+  transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease;
+}
+
+.nav-item::after{
+  content:"";
+  position:absolute;
+  right:8px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:transparent;
+  transition:background .2s ease,box-shadow .2s ease;
+}
+
+.nav-item.active::after{
+  background:#032421;
+  box-shadow:0 0 0 4px rgba(3,36,33,.10);
+}
+
+.nav-item:not(.active):hover{
+  transform:translateX(2px);
+}
+
+.sidebar-progress{
+  position:absolute;
+  top:105px;
+  right:5px;
+  width:2px;
+  height:calc(100% - 176px);
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(37,228,173,.09);
+}
+
+.sidebar-progress span{
+  display:block;
+  width:100%;
+  height:0;
+  border-radius:999px;
+  background:linear-gradient(180deg,var(--green),var(--cyan));
+  transition:height .12s linear;
+}
+
+/* Mantém os blocos claramente conectados sem parecer páginas separadas */
+.dashboard-section .comparison-panel,
+.dashboard-section .table-panel{
+  margin-bottom:0;
+}
+
+.dashboard-section .grid-2 + .comparison-panel,
+.dashboard-section .kpi-grid + .grid-2,
+.dashboard-section .environment-layout,
+.dashboard-section .table-panel + .grid-2{
+  margin-top:0;
+}
+
+@media(max-width:1280px){
+  .sticky-topbar{
+    margin-left:-24px;
+    margin-right:-24px;
+  }
+  .section-head h2{font-size:28px}
+}
+
+/* =========================================================
+   V6 — INTER, NITIDEZ, SPARKLINES E DESEMPENHO
+   ========================================================= */
+
+:root{
+  font-family:"Inter Variable","Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --panel-border:rgba(43,151,158,.66);
+  --panel-highlight:rgba(71,238,199,.12);
+}
+
+body,
+button,
+input,
+select,
+textarea{
+  font-family:"Inter Variable","Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-optical-sizing:auto;
+  font-variation-settings:"wght" 520;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Evita o custo permanente de blur enquanto a página rola. */
+.sticky-topbar{
+  background:rgba(3,28,31,.985);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+/* O navegador deixa de rasterizar seções muito distantes do viewport. */
+.dashboard-section{
+  content-visibility:auto;
+  contain-intrinsic-size:900px;
+}
+
+.kpi,.panel,.env-card{
+  border-color:var(--panel-border);
+  background:
+    linear-gradient(180deg,rgba(8,60,65,.985),rgba(4,39,43,.985));
+  box-shadow:0 7px 18px rgba(0,0,0,.14),inset 0 1px 0 rgba(115,255,220,.025);
+}
+
+.panel{
+  overflow:visible;
+}
+
+.chart-box,
+.modal-chart-box{
+  position:relative;
+  isolation:isolate;
+}
+
+.chart-box canvas,
+.modal-chart-box canvas{
+  display:block;
+  width:100%!important;
+  height:100%!important;
+}
+
+.kpi-value{
+  font-variation-settings:"wght" 820;
+  letter-spacing:-.65px;
+}
+
+.kpi-label,
+.panel-heading h3,
+.section-head h2,
+.env-head,
+.table-wrap th{
+  font-variation-settings:"wght" 730;
+}
+
+/* Cards de ambiente com evolução embutida. */
+.env-card{
+  min-height:382px;
+  overflow:hidden;
+}
+
+.env-main strong{
+  font-size:32px;
+}
+
+.sla-circle{
+  width:70px;
+  height:70px;
+  text-align:center;
+  line-height:1.05;
+}
+
+.env-bottom{
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(73,183,184,.16);
+}
+
+.env-spark-wrap{
+  margin-top:10px;
+  padding-top:3px;
+}
+
+.env-spark-title{
+  min-height:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  color:#9dbbbc;
+  font-size:9px;
+  font-weight:620;
+}
+
+.env-spark-title b{
+  color:#d9eeee;
+  font-size:8.5px;
+  font-weight:680;
+  white-space:nowrap;
+}
+
+.env-spark{
+  width:100%;
+  height:84px;
+  display:block;
+  overflow:visible;
+}
+
+.env-spark text{
+  font-family:"Inter Variable","Inter",sans-serif;
+  font-size:8.5px;
+  font-weight:760;
+}
+
+/* Painéis ligeiramente mais contrastados para gráficos mais vivos. */
+.panel-heading{
+  border-bottom:1px solid rgba(73,183,184,.08);
+  padding-bottom:9px;
+}
+
+.panel-icon{
+  background:rgba(49,217,255,.105);
+  border-color:rgba(75,228,255,.22);
+}
+
+.chart-box{
+  padding-top:2px;
+}
+
+/* Eixos ficam discretos; os valores importantes são os rótulos sobre os dados. */
+.chart-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:5px;
+  background:linear-gradient(180deg,rgba(37,228,173,.012),transparent 28%);
+  z-index:-1;
+}
+
+/* Scroll mais barato e sem animações excessivas durante interação. */
+.nav-item,
+.kpi-clickable,
+.env-card-clickable,
+.kpi-icon-svg,
+.panel-icon-svg,
+.env-icon-svg{
+  transition-duration:.14s;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+@media(max-width:1450px){
+  .env-card{min-height:370px;padding:12px}
+  .env-main strong{font-size:29px}
+  .sla-circle{width:64px;height:64px}
+  .env-spark-title b{display:none}
+}
+
+/* =========================================================
+   V6 — CROSS-FILTER, RÓTULOS LEGÍVEIS E INTERAÇÃO
+   ========================================================= */
+
+.demand-crossfilter{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:44px;
+  margin:10px 0 12px;
+  padding:9px 12px;
+  border:1px solid rgba(72,189,194,.24);
+  border-radius:9px;
+  background:rgba(4,45,49,.58);
+  color:#a9c8c9;
+  font-size:11px;
+}
+
+.demand-crossfilter.active{
+  border-color:rgba(43,231,177,.52);
+  background:linear-gradient(90deg,rgba(30,179,141,.11),rgba(4,45,49,.72));
+}
+
+.demand-crossfilter-copy{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+}
+
+.demand-crossfilter-copy span{min-width:0;white-space:normal}
+.demand-crossfilter-copy b{color:#dffff6;font-weight:780}
+.demand-crossfilter-copy strong{color:#fff;font-weight:800}
+.crossfilter-icon{width:17px;height:17px;color:var(--green);flex:0 0 auto}
+.crossfilter-hint{color:#87aaac;font-size:10px;text-align:right}
+
+.clear-crossfilter{
+  appearance:none;
+  border:1px solid rgba(51,231,183,.42);
+  background:rgba(37,228,173,.09);
+  color:#dffff6;
+  border-radius:7px;
+  padding:7px 10px;
+  font:inherit;
+  font-size:10px;
+  font-weight:750;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.clear-crossfilter:hover{background:rgba(37,228,173,.16)}
+.clear-crossfilter:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+.interactive-panel .panel-heading::after{
+  content:"INTERATIVO";
+  margin-left:auto;
+  color:#68dabe;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.7px;
+  border:1px solid rgba(68,226,185,.24);
+  border-radius:999px;
+  padding:3px 6px;
+  background:rgba(37,228,173,.055);
+}
+
+.env-spark rect{shape-rendering:geometricPrecision}
+.env-spark text{font-weight:850}
+
+/* O canvas permanece nítido sem animações contínuas. */
+.chart-box canvas,
+.modal-chart-box canvas{
+  image-rendering:auto;
+}
+
+@media(max-width:900px){
+  .demand-crossfilter{align-items:flex-start;flex-direction:column}
+  .crossfilter-hint{text-align:left}
+}
+
+/* =========================================================
+   V7 — PALETA SERVICEOPS, DATA LABELS MODERNOS E AMBIENTES MAIORES
+   ========================================================= */
+
+/* Ambientes passam a usar toda a largura disponível. Mantém os 4 cards
+   na mesma linha em desktops largos, mas com leitura muito melhor. */
+.environment-layout{
+  grid-template-columns:1fr;
+  grid-template-areas:
+    "cards"
+    "compare"
+    "chart";
+  gap:14px;
+}
+
+.env-cards{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:13px;
+}
+
+.env-card{
+  min-height:455px;
+  padding:20px 20px 17px;
+  border-radius:12px;
+  background:
+    radial-gradient(circle at 88% 8%,rgba(37,228,173,.055),transparent 29%),
+    linear-gradient(180deg,rgba(8,64,68,.99),rgba(4,39,43,.99));
+}
+
+.env-head{
+  gap:11px;
+  font-size:15px;
+  font-weight:780;
+}
+
+.env-icon-box{
+  width:41px;
+  height:41px;
+  border-radius:10px;
+}
+
+.env-icon-svg{width:21px;height:21px}
+.env-open{width:31px;height:31px}
+
+.env-main{margin-top:25px}
+.env-main strong{
+  font-size:38px;
+  line-height:.98;
+  letter-spacing:-.8px;
+}
+.env-main>div small{font-size:11.5px;margin-top:3px}
+
+.sla-circle{
+  width:78px;
+  height:78px;
+  font-size:12.5px;
+  border-width:1px;
+  box-shadow:inset 0 0 22px rgba(37,228,173,.055);
+}
+.sla-circle small{font-size:9px;margin-top:4px}
+
+.env-variation{
+  margin-top:17px;
+  gap:8px;
+  font-size:11.5px;
+}
+.env-variation .kpi-delta{font-size:12.5px}
+
+.env-hours{
+  margin-top:24px;
+  gap:10px;
+  font-size:21px;
+}
+.env-clock-icon{width:20px;height:20px}
+.env-hours small{font-size:10.5px}
+
+.env-bottom{
+  margin-top:24px;
+  padding-bottom:16px;
+  font-size:11.5px;
+}
+.env-bottom b{
+  margin-top:5px;
+  font-size:14.5px;
+  letter-spacing:.1px;
+}
+
+.env-spark-wrap{margin-top:14px}
+.env-spark-title{
+  min-height:26px;
+  font-size:10.5px;
+}
+.env-spark-title b{
+  font-size:10px;
+  letter-spacing:.1px;
+}
+.env-spark{
+  height:112px;
+  margin-top:3px;
+}
+.env-spark text{
+  font-size:10.5px;
+  font-weight:820;
+}
+
+/* Cards/painéis ganham contraste sutil, sem abandonar o verde-petróleo. */
+#section-overview .panel,
+#section-environments .panel,
+#section-environments .env-card{
+  border-color:rgba(42,157,159,.62);
+}
+
+/* Legendas geradas manualmente pelo Chart.js precisam permanecer claras. */
+#overviewType{color:#e8fafa}
+
+/* Mais espaço no gráfico principal para os novos data labels em pílulas. */
+#section-overview .overview-charts .chart-box{height:255px}
+
+@media(max-width:1450px){
+  .env-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .env-card{min-height:440px;padding:18px}
+  .env-main strong{font-size:36px}
+  .sla-circle{width:74px;height:74px}
+  .env-spark-title b{display:block}
+}
+
+@media(max-width:1050px){
+  .env-cards{grid-template-columns:1fr}
+}
+
+/* =========================================================
+   V9 — SLA DUPLO, DONUT SVG NÍTIDO E CROSS-FILTER POR SEÇÃO
+   ========================================================= */
+
+.kpi-grid.six{
+  grid-template-columns:repeat(6,minmax(0,1fr));
+}
+.kpi.cyan .kpi-icon-box{
+  color:#62e7ff;
+  background:rgba(58,207,238,.095);
+  border-color:rgba(98,231,255,.22);
+}
+
+/* Barra de contexto reutilizada nas seções interativas. */
+.section-crossfilter{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:44px;
+  margin:10px 0 13px;
+  padding:9px 12px;
+  border:1px solid rgba(72,189,194,.24);
+  border-radius:9px;
+  background:rgba(4,45,49,.58);
+  color:#a9c8c9;
+  font-size:11px;
+}
+.section-crossfilter.active{
+  border-color:rgba(43,231,177,.52);
+  background:linear-gradient(90deg,rgba(30,179,141,.11),rgba(4,45,49,.72));
+}
+.section-crossfilter-copy{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+}
+.section-crossfilter-copy span{min-width:0;white-space:normal}
+.section-crossfilter-copy b{color:#dffff6;font-weight:780}
+.section-crossfilter-copy strong{color:#fff;font-weight:800}
+
+/* Distribuição por tipo deixa de ser canvas. SVG preserva nitidez em qualquer zoom/DPR. */
+.type-donut-host{
+  height:auto!important;
+  min-height:255px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:3px 4px 2px;
+}
+.type-donut-viz{
+  width:100%;
+  display:grid;
+  grid-template-columns:minmax(190px,255px) minmax(220px,1fr);
+  grid-template-areas:"donut legend" "active legend";
+  align-items:center;
+  justify-content:center;
+  gap:3px 24px;
+}
+.type-donut-svg{
+  grid-area:donut;
+  width:min(100%,250px);
+  aspect-ratio:1;
+  justify-self:center;
+  overflow:visible;
+  shape-rendering:geometricPrecision;
+  text-rendering:geometricPrecision;
+}
+.type-donut-segment{
+  cursor:pointer;
+  transition:opacity .14s ease,stroke-width .14s ease,filter .14s ease;
+  outline:none;
+}
+.type-donut-viz:has(.type-donut-segment.selected) .type-donut-segment:not(.selected){opacity:.28}
+.type-donut-segment.selected,
+.type-donut-segment:hover,
+.type-donut-segment:focus-visible{
+  stroke-width:21;
+  filter:drop-shadow(0 0 5px rgba(80,240,205,.24));
+}
+.type-donut-total{
+  fill:#f6ffff;
+  font:800 12px "Inter Variable","Inter",sans-serif;
+  letter-spacing:-.2px;
+}
+.type-donut-caption{
+  fill:#9fbfc1;
+  font:650 5px "Inter Variable","Inter",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+.type-donut-active{
+  grid-area:active;
+  justify-self:center;
+  color:#8fb2b4;
+  font-size:9.5px;
+  font-weight:600;
+  margin-top:-5px;
+}
+.type-donut-active b{color:#dffff6;font-weight:780}
+.type-donut-legend{
+  grid-area:legend;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-width:0;
+}
+.type-legend-item{
+  appearance:none;
+  width:100%;
+  display:grid;
+  grid-template-columns:12px minmax(0,1fr) auto auto;
+  align-items:center;
+  gap:8px;
+  min-height:39px;
+  padding:8px 10px;
+  color:#d8eeee;
+  background:rgba(3,35,39,.54);
+  border:1px solid rgba(84,164,167,.14);
+  border-radius:8px;
+  font:600 11px "Inter Variable","Inter",sans-serif;
+  text-align:left;
+  cursor:pointer;
+  transition:background .14s ease,border-color .14s ease,opacity .14s ease;
+}
+.type-legend-item:hover,
+.type-legend-item.active{
+  background:rgba(8,65,67,.72);
+  border-color:rgba(79,218,184,.38);
+}
+.type-donut-legend:has(.type-legend-item.active) .type-legend-item:not(.active){opacity:.52}
+.type-legend-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--dot);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--dot) 14%,transparent);
+}
+.type-legend-item b{color:#f6ffff;font-size:12px;font-weight:800}
+.type-legend-item small{color:#88aaac;font-size:9px;font-weight:700;min-width:40px;text-align:right}
+
+/* Ambientes: seleção do card + SLA em dois blocos coerentes com o design. */
+.env-card{
+  position:relative;
+}
+.env-card.selected{
+  border-color:rgba(72,240,193,.88)!important;
+  box-shadow:0 0 0 1px rgba(72,240,193,.16),0 12px 26px rgba(0,0,0,.16),inset 0 1px 0 rgba(115,255,220,.04);
+}
+.env-card.dimmed{opacity:.50}
+.env-card.dimmed:hover{opacity:.78}
+.env-detail-button{
+  appearance:none;
+  margin-left:auto;
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  color:var(--green);
+  background:rgba(37,228,173,.075);
+  border:1px solid rgba(37,228,173,.14);
+  border-radius:8px;
+  cursor:pointer;
+}
+.env-detail-button:hover{background:rgba(37,228,173,.15);border-color:rgba(37,228,173,.34)}
+.env-detail-button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+.env-main{
+  align-items:flex-start;
+  gap:18px;
+}
+.env-sla-block{
+  width:min(58%,210px);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.env-sla-metric{
+  padding:9px 10px 8px;
+  border-radius:9px;
+  background:rgba(2,36,40,.58);
+  border:1px solid rgba(67,177,181,.20);
+}
+.env-sla-metric.first{border-color:rgba(73,210,239,.25)}
+.env-sla-metric.resolution{border-color:rgba(55,232,181,.27)}
+.env-sla-copy{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:8px;
+  min-width:0;
+}
+.env-sla-copy span{
+  color:#9fbfc1;
+  font-size:8.5px;
+  line-height:1.15;
+  font-weight:680;
+  white-space:nowrap;
+}
+.env-sla-copy strong{
+  color:#f6ffff;
+  font-size:11.5px;
+  line-height:1;
+  font-weight:830;
+  letter-spacing:-.15px;
+}
+.env-sla-track{
+  height:3px;
+  margin-top:7px;
+  border-radius:99px;
+  background:rgba(156,209,209,.10);
+  overflow:hidden;
+}
+.env-sla-track i{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+}
+.env-sla-metric.first .env-sla-track i{background:linear-gradient(90deg,#30bfdc,#69efff)}
+.env-sla-metric.resolution .env-sla-track i{background:linear-gradient(90deg,#1cae89,#55efc3)}
+
+/* Os antigos círculos de SLA não são mais usados na V9. */
+.sla-circle{display:none!important}
+
+@media(max-width:1560px){
+  .kpi-grid.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .type-donut-viz{grid-template-columns:minmax(180px,230px) minmax(210px,1fr)}
+}
+@media(max-width:1180px){
+  .type-donut-viz{grid-template-columns:1fr;grid-template-areas:"donut" "active" "legend";gap:7px}
+  .type-donut-legend{width:min(100%,430px);justify-self:center}
+  .env-sla-block{width:min(62%,220px)}
+}
+@media(max-width:900px){
+  .kpi-grid.six{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .section-crossfilter{align-items:flex-start;flex-direction:column}
+  .env-main{flex-direction:column}
+  .env-sla-block{width:100%;max-width:none}
+}
+@media(max-width:620px){
+  .kpi-grid.six{grid-template-columns:1fr}
+}
+
+/* =========================================================
+   V10 — MELHORIAS SERVICEOPS (BASE DEMONSTRATIVA)
+   ========================================================= */
+.improvements-kpis .improvement-filter-kpi{
+  text-align:left;
+  cursor:pointer;
+  appearance:none;
+  width:100%;
+  color:inherit;
+  transition:border-color .16s ease, background-color .16s ease, transform .16s ease;
+}
+.improvements-kpis .improvement-filter-kpi:hover{
+  border-color:rgba(37,228,173,.55);
+  background:linear-gradient(180deg,rgba(10,68,72,.98),rgba(7,54,58,.98));
+}
+.improvements-kpis .improvement-filter-kpi.filter-active{
+  border-color:rgba(37,228,173,.8);
+  box-shadow:inset 0 0 0 1px rgba(37,228,173,.16);
+}
+.improvements-kpis .improvement-filter-kpi.filter-active .kpi-icon-box{
+  background:rgba(37,228,173,.16);
+  border-color:rgba(37,228,173,.38);
+}
+.filter-kpi-indicator{
+  width:28px;
+  height:28px;
+  flex:0 0 28px;
+  display:grid;
+  place-items:center;
+  border-radius:7px;
+  color:var(--green);
+  background:rgba(37,228,173,.07);
+  border:1px solid rgba(37,228,173,.13);
+}
+.improvement-total .kpi-value{color:#56e8c4}
+.improvements-table .table-wrap{max-width:100%;overflow-x:auto}
+.improvements-table table{min-width:1420px}
+.improvements-table td,.improvements-table th{vertical-align:top}
+.truncate.extra-wide{max-width:390px}
+.improvements-table td:nth-child(1){white-space:nowrap}
+.improvements-table td:nth-child(3){white-space:nowrap}
+.improvements-table td:nth-child(4){min-width:170px}
+.improvements-table td:nth-child(5),
+.improvements-table td:nth-child(7){white-space:nowrap}
+.improvements-table .status{display:inline-flex;align-items:center;min-height:25px}
+
+/* =========================================================
+   V11 — SLICERS ESTÁVEIS, LOGOS OFICIAIS E PERFORMANCE
+   ========================================================= */
+
+/* Logos fornecidas pelo usuário */
+.brand-logo{
+  display:block;
+  object-fit:contain;
+  flex:0 0 auto;
+}
+.product-brand-logo{
+  width:42px;
+  height:42px;
+}
+.brand-side{
+  align-items:center;
+  gap:10px;
+}
+.brand-top{
+  align-items:center;
+  gap:9px;
+}
+.portfolio{
+  top:17px;
+  right:0;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.portfolio-logo{
+  display:block;
+  width:132px;
+  height:42px;
+  object-fit:contain;
+  object-position:right center;
+}
+.sidebar-foot{
+  width:calc(100% - 32px);
+}
+.sidebar-portfolio-logo{
+  display:block;
+  width:132px;
+  height:auto;
+  max-height:62px;
+  object-fit:contain;
+  object-position:left center;
+  margin-bottom:4px;
+}
+footer{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.footer-portfolio-logo{
+  width:105px;
+  height:auto;
+  max-height:48px;
+  object-fit:contain;
+}
+
+/* Slicers substituem os selects nativos que podiam ficar ilegíveis no Windows. */
+.top-controls{
+  margin-left:auto;
+  margin-right:152px;
+  position:relative;
+  z-index:80;
+}
+.data-slicer{
+  position:relative;
+  min-width:258px;
+  color:#eaffff;
+  z-index:85;
+}
+.data-slicer.compact{
+  min-width:205px;
+}
+.data-slicer summary{
+  list-style:none;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 11px;
+  border:1px solid rgba(36,151,157,.72);
+  border-radius:10px;
+  background:linear-gradient(180deg,rgba(8,57,62,.99),rgba(5,43,47,.99));
+  color:#efffff;
+  cursor:pointer;
+  user-select:none;
+  box-shadow:inset 0 1px 0 rgba(122,255,226,.035),0 6px 16px rgba(0,0,0,.12);
+  transition:border-color .14s ease,background-color .14s ease;
+}
+.data-slicer summary::-webkit-details-marker{display:none}
+.data-slicer summary::marker{content:""}
+.data-slicer summary:hover,
+.data-slicer[open] summary{
+  border-color:rgba(47,225,188,.72);
+  background:linear-gradient(180deg,rgba(10,68,72,.99),rgba(6,49,53,.99));
+}
+.data-slicer summary:focus-visible{
+  outline:2px solid rgba(56,232,194,.85);
+  outline-offset:2px;
+}
+.slicer-icon{
+  width:29px;
+  height:29px;
+  flex:0 0 29px;
+  display:grid;
+  place-items:center;
+  color:#4be7c0;
+  background:rgba(37,228,173,.085);
+  border:1px solid rgba(37,228,173,.16);
+  border-radius:8px;
+}
+.slicer-icon-svg{width:16px;height:16px}
+.slicer-copy{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  flex:1 1 auto;
+  line-height:1.1;
+}
+.slicer-copy small{
+  color:#88aaad;
+  font-size:9px;
+  line-height:1;
+  font-weight:730;
+  letter-spacing:.65px;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.slicer-copy strong{
+  display:block;
+  min-width:0;
+  color:#f3ffff;
+  font-size:11.5px;
+  line-height:1.2;
+  font-weight:720;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.slicer-chevron{
+  flex:0 0 auto;
+  color:#6be8ca;
+  font-size:17px;
+  line-height:1;
+  transform:translateY(-1px);
+  transition:transform .14s ease;
+}
+.data-slicer[open] .slicer-chevron{transform:rotate(180deg) translateY(1px)}
+.slicer-menu{
+  position:absolute;
+  right:0;
+  top:calc(100% + 7px);
+  width:max(100%,310px);
+  max-height:320px;
+  overflow:auto;
+  padding:6px;
+  border:1px solid rgba(43,151,158,.72);
+  border-radius:10px;
+  background:#052c30;
+  box-shadow:0 18px 42px rgba(0,0,0,.38);
+  z-index:300;
+  overscroll-behavior:contain;
+}
+.data-slicer.compact .slicer-menu{
+  left:0;
+  right:auto;
+  width:230px;
+}
+.slicer-option{
+  width:100%;
+  min-height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:8px 10px;
+  border:1px solid transparent;
+  border-radius:7px;
+  background:transparent;
+  color:#d8eded;
+  font-size:11.5px;
+  line-height:1.25;
+  font-weight:600;
+  text-align:left;
+  cursor:pointer;
+}
+.slicer-option:hover{
+  background:rgba(37,228,173,.075);
+  border-color:rgba(37,228,173,.10);
+  color:#ffffff;
+}
+.slicer-option.selected{
+  color:#eafff9;
+  background:rgba(37,228,173,.12);
+  border-color:rgba(37,228,173,.25);
+  font-weight:760;
+}
+.slicer-check{width:16px;height:16px;color:#3ce6b9;flex:0 0 auto}
+.data-slicer.compact summary{
+  min-height:38px;
+  padding:5px 9px;
+}
+.data-slicer.compact .slicer-icon{
+  width:26px;height:26px;flex-basis:26px;
+}
+.data-slicer.compact .slicer-copy small{display:none}
+.data-slicer.compact .slicer-copy strong{font-size:11.5px}
+.inline-filter{
+  overflow:visible;
+  position:relative;
+  z-index:25;
+}
+.inline-filter>span:first-child{
+  color:#90afb1;
+  font-weight:680;
+}
+
+/* Evita qualquer corte do menu flutuante nos cabeçalhos. */
+.sticky-topbar,.section-head,.section-toolbar{overflow:visible}
+
+/* Otimizações de renderização: menos rasterização antecipada e menos memória de canvas. */
+.chart-box,
+.modal-chart-box,
+.sparkline-box{
+  contain:layout paint;
+}
+canvas{
+  image-rendering:auto;
+}
+.dashboard-section{
+  contain-intrinsic-size:820px;
+}
+html.dashboard-updating{
+  cursor:progress;
+}
+html.dashboard-updating .data-slicer summary{
+  border-color:rgba(37,228,173,.55);
+}
+
+/* Mantém menus e logos claros em larguras intermediárias. */
+@media(max-width:1180px){
+  .top-controls{margin-right:128px}
+  .data-slicer{min-width:228px}
+  .portfolio-logo{width:112px}
+}
+@media(max-width:900px){
+  .top-controls{margin-right:0}
+  .portfolio{display:none}
+  .data-slicer{min-width:210px}
+}
+@media(max-width:620px){
+  .data-slicer{min-width:0;width:100%}
+  .slicer-menu{left:0;right:auto;width:min(92vw,340px)}
+}
+.slicer-check-wrap{display:none;flex:0 0 auto}
+.slicer-option.selected .slicer-check-wrap{display:block}
+
+
+/* =========================================================
+   V12 — LAYOUT FLUIDO, SLICERS SEM CORTE, ESPAÇAMENTO E TABELAS KPI
+   ========================================================= */
+
+/* Nunca permita rolagem horizontal da página inteira. Tabelas extensas
+   continuam rolando apenas dentro do próprio painel. */
+html,
+body,
+#app{
+  width:100%;
+  max-width:100%;
+  min-width:0!important;
+  overflow-x:hidden!important;
+}
+
+.app-shell{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  grid-template-columns:202px minmax(0,1fr)!important;
+}
+
+.main-area{
+  min-width:0!important;
+  width:auto;
+  max-width:100%;
+  overflow-x:clip!important;
+  overflow-y:visible!important;
+}
+
+.one-page-content,
+.dashboard-section,
+.section-body,
+.section-head,
+.section-toolbar,
+.kpi-grid,
+.grid-2,
+.environment-layout,
+.env-cards,
+.panel{
+  min-width:0;
+  max-width:100%;
+}
+
+.section-toolbar{
+  flex-wrap:wrap;
+  row-gap:10px;
+}
+
+.section-toolbar .tabs{
+  min-width:0;
+  flex-wrap:wrap;
+}
+
+.inline-filter{
+  margin-left:auto;
+  min-width:0;
+  max-width:100%;
+}
+
+.data-slicer.compact{
+  width:clamp(190px,18vw,245px);
+  min-width:0!important;
+  max-width:100%;
+}
+
+/* O slicer de ambiente abre para dentro da tela, nunca para fora. */
+.data-slicer.compact .slicer-menu{
+  left:auto!important;
+  right:0!important;
+  width:min(260px,calc(100vw - 32px))!important;
+  max-width:calc(100vw - 32px);
+}
+
+.data-slicer[open]{
+  z-index:1200!important;
+}
+
+.section-toolbar:has(.data-slicer[open]),
+.inline-filter:has(.data-slicer[open]){
+  z-index:1200!important;
+}
+
+/* content-visibility é ótimo para performance, mas pode recortar popovers.
+   Enquanto um slicer está aberto, suspendemos o containment apenas naquela seção. */
+.dashboard-section:has(.data-slicer[open]){
+  content-visibility:visible!important;
+  contain:none!important;
+  z-index:180;
+}
+
+/* A área de melhorias ganha respiro real entre cards, tabela e gráficos. */
+#section-improvements .improvements-kpis{
+  gap:14px!important;
+  margin-bottom:18px!important;
+}
+
+#section-improvements .improvements-table{
+  margin-bottom:18px!important;
+}
+
+#section-improvements .table-panel + .grid-2.lower{
+  margin-top:18px!important;
+}
+
+#section-improvements .lower{
+  gap:16px!important;
+}
+
+.improvement-filter-kpi{
+  position:relative;
+  min-height:122px;
+}
+
+.improvement-card-actions{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-left:auto;
+}
+
+.improvement-detail-button{
+  appearance:none;
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(37,228,173,.18);
+  border-radius:8px;
+  background:rgba(37,228,173,.075);
+  color:var(--green);
+  cursor:pointer;
+}
+
+.improvement-detail-button:hover{
+  border-color:rgba(37,228,173,.45);
+  background:rgba(37,228,173,.15);
+}
+
+.improvement-detail-button:focus-visible{
+  outline:2px solid var(--green);
+  outline-offset:2px;
+}
+
+/* A tabela de melhorias não força a largura do documento. */
+.improvements-table .table-wrap,
+.compare .table-wrap,
+.comparison-panel .table-wrap{
+  max-width:100%;
+  overflow-x:auto;
+  overscroll-behavior:contain;
+}
+
+.improvements-table table{
+  width:100%;
+  min-width:1080px!important;
+}
+
+/* Cabeçalho do modal + botão Tabela ao lado do título. */
+.metric-modal-title-wrap{
+  min-width:0;
+  flex:1 1 auto;
+}
+
+.metric-modal-copy{
+  min-width:0;
+}
+
+.metric-modal-title-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  min-width:0;
+}
+
+.metric-modal-title-line h2{
+  min-width:0;
+  margin-right:2px;
+}
+
+.modal-table-button{
+  appearance:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:34px;
+  padding:6px 10px;
+  border:1px solid rgba(49,217,255,.34);
+  border-radius:8px;
+  background:linear-gradient(180deg,rgba(14,73,79,.96),rgba(7,48,53,.96));
+  color:#dffaff;
+  font-size:11px;
+  font-weight:780;
+  letter-spacing:.05px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.modal-table-button:hover{
+  border-color:rgba(49,217,255,.72);
+  background:linear-gradient(180deg,rgba(17,87,93,.98),rgba(8,57,61,.98));
+}
+
+.modal-table-button:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:2px;
+}
+
+.modal-table-button-icon{
+  width:15px;
+  height:15px;
+  color:var(--cyan);
+}
+
+/* O rodapé agora exibe somente a marca solicitada. */
+.sidebar-foot,
+footer{
+  gap:0;
+}
+
+.sidebar-foot small,
+footer small{
+  display:none!important;
+}
+
+/* Ajustes de largura intermediária: mantém tudo dentro da viewport. */
+@media(max-width:1280px){
+  .app-shell{
+    grid-template-columns:176px minmax(0,1fr)!important;
+  }
+  .sidebar{
+    width:176px!important;
+  }
+  .main-area{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  .sticky-topbar{
+    margin-left:-16px!important;
+    margin-right:-16px!important;
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  .top-controls{
+    margin-right:118px!important;
+  }
+}
+
+@media(max-width:1040px){
+  .app-shell{
+    grid-template-columns:82px minmax(0,1fr)!important;
+  }
+  .sidebar{
+    width:82px!important;
+    padding-left:9px!important;
+    padding-right:9px!important;
+  }
+  .brand-side>div,
+  .nav-item>span:last-child,
+  .sidebar-foot{
+    display:none!important;
+  }
+  .brand-side{
+    justify-content:center;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+  .nav-item{
+    justify-content:center;
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+  .sidebar-progress{
+    right:3px;
+  }
+  .topbar-context{
+    display:none;
+  }
+  .top-controls{
+    margin-left:auto!important;
+    margin-right:120px!important;
+  }
+}
+
+@media(max-width:820px){
+  .main-area{
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+  .sticky-topbar{
+    margin-left:-12px!important;
+    margin-right:-12px!important;
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+  .portfolio{
+    display:none!important;
+  }
+  .top-controls{
+    margin-right:0!important;
+    width:min(100%,300px);
+  }
+  .data-slicer{
+    width:100%;
+    min-width:0!important;
+  }
+  .section-toolbar{
+    align-items:flex-start;
+  }
+  .inline-filter{
+    width:100%;
+    justify-content:flex-end;
+  }
+  .data-slicer.compact{
+    width:min(100%,280px);
+  }
+}
+
+@media(max-width:620px){
+  .app-shell{
+    grid-template-columns:64px minmax(0,1fr)!important;
+  }
+  .sidebar{
+    width:64px!important;
+  }
+  .product-brand-logo{
+    width:38px!important;
+    height:38px!important;
+  }
+  .main-area{
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+  .sticky-topbar{
+    margin-left:-10px!important;
+    margin-right:-10px!important;
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+  .section-head{
+    gap:12px;
+  }
+  .section-head h2{
+    font-size:25px!important;
+  }
+  .metric-modal-backdrop{
+    padding:8px!important;
+  }
+  .metric-modal{
+    width:calc(100vw - 16px)!important;
+    max-height:calc(100vh - 16px)!important;
+    padding:14px!important;
+  }
+}
+
+/* =========================================================
+   V13 — ROLAGEM ÚNICA DO DOCUMENTO
+   Corrige o duplo scrollbar criado por overflow-x:hidden em
+   elementos aninhados. Apenas o viewport (html) rola na vertical.
+   ========================================================= */
+html{
+  width:100%;
+  max-width:100%;
+  min-width:0!important;
+  overflow-x:clip!important;
+  overflow-y:auto!important;
+  min-height:100%;
+}
+
+body{
+  width:100%;
+  max-width:100%;
+  min-width:0!important;
+  min-height:100%;
+  overflow:visible!important;
+}
+
+#app{
+  width:100%;
+  max-width:100%;
+  min-width:0!important;
+  min-height:100%;
+  overflow:visible!important;
+}
+
+.app-shell,
+.main-area,
+.one-page-content{
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:visible!important;
+}
+
+/* O eixo horizontal é cortado somente no viewport, sem transformar
+   body/#app em contêineres de rolagem independentes. */
+.app-shell,
+.one-page-content{
+  overflow-x:visible!important;
+}
+
+.main-area{
+  overflow-x:visible!important;
+}
+
+/* Tabelas continuam podendo rolar horizontalmente dentro do card,
+   mas nunca assumem a rolagem vertical da página. */
+.table-wrap,
+.improvements-table .table-wrap,
+.compare .table-wrap,
+.comparison-panel .table-wrap{
+  overflow-x:auto!important;
+  overflow-y:visible!important;
+}
+
+/* Garante que navegação/scrollspy apontem para o único scroller. */
+.dashboard-section{
+  scroll-margin-top:94px;
+}
+
+/* =========================================================
+   V15 — DETALHAMENTO DE ROMPIMENTOS DE SLA
+   ========================================================= */
+.sla-breach-panel{
+  margin:0 0 11px;
+  border-color:rgba(255,91,119,.38);
+  background:linear-gradient(135deg,rgba(80,25,37,.28),rgba(6,48,52,.86) 46%);
+}
+.sla-breach-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding-bottom:11px;
+  margin-bottom:10px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.sla-breach-title{display:flex;align-items:center;gap:10px;min-width:0}
+.sla-breach-title-icon{
+  width:31px;height:31px;flex:0 0 31px;padding:6px;border-radius:8px;
+  color:#ff6b86;background:rgba(255,91,119,.10);border:1px solid rgba(255,91,119,.28);
+}
+.sla-breach-title span{display:block;color:#ff8da1;font-size:9px;font-weight:850;letter-spacing:1px;margin-bottom:2px}
+.sla-breach-title h3{margin:0!important;font-size:13px!important;font-weight:780;color:#f5ffff}
+.sla-breach-count{
+  flex:0 0 auto;padding:6px 9px;border-radius:999px;color:#ffdce3;background:rgba(255,91,119,.13);
+  border:1px solid rgba(255,91,119,.35);font-size:10px;font-weight:820;
+}
+.sla-breach-count.ok{color:#9fffe1;background:rgba(37,228,173,.10);border-color:rgba(37,228,173,.28)}
+.sla-breach-list{display:grid;gap:7px}
+.sla-breach-row{
+  display:grid;grid-template-columns:30px minmax(220px,1.7fr) minmax(90px,.55fr) minmax(100px,.65fr) minmax(150px,.8fr);
+  gap:10px;align-items:center;padding:9px 10px;border-radius:8px;
+  background:rgba(3,28,31,.56);border:1px solid rgba(255,91,119,.16);
+}
+.sla-breach-index{
+  width:25px;height:25px;display:grid;place-items:center;border-radius:7px;
+  color:#ff8da1;background:rgba(255,91,119,.10);font-size:10px;font-weight:850;
+}
+.sla-breach-call{min-width:0}
+.sla-breach-call strong{display:block;color:#fff;font-size:12px;font-weight:820;margin-bottom:3px}
+.sla-breach-call span{display:block;color:#9ec1c3;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sla-breach-meta{min-width:0}
+.sla-breach-meta span{display:block;color:#88afb1;font-size:8.5px;font-weight:650;text-transform:uppercase;letter-spacing:.35px;margin-bottom:3px}
+.sla-breach-meta b{display:block;color:#efffff;font-size:11px;font-weight:760;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sla-breach-meta.elapsed b{color:#ff8da1;font-size:13px;font-variant-numeric:tabular-nums}
+.sla-breach-empty{border-color:rgba(37,228,173,.24);background:linear-gradient(135deg,rgba(16,91,75,.17),rgba(6,48,52,.86) 46%)}
+.sla-breach-empty .sla-breach-title-icon{color:#25e4ad;background:rgba(37,228,173,.09);border-color:rgba(37,228,173,.22)}
+.sla-breach-empty .sla-breach-title span{color:#5ff3c7}
+.sla-breach-empty-state{display:flex;align-items:center;gap:10px;padding:8px 2px 2px;color:#dffdf5}
+.sla-breach-empty-icon{width:26px;height:26px;flex:0 0 26px;color:#25e4ad}
+.sla-breach-empty-state b{display:block;font-size:11px;margin-bottom:3px}
+.sla-breach-empty-state span{display:block;color:#94babc;font-size:9.5px}
+@media(max-width:900px){
+  .sla-breach-row{grid-template-columns:28px minmax(0,1fr) minmax(120px,.6fr)}
+  .sla-breach-row .sla-breach-meta:nth-of-type(1),
+  .sla-breach-row .sla-breach-meta:nth-of-type(2){display:none}
+}
+
+
+/* =========================================================
+   V18 — RESPONSIVIDADE DE KPIs / NOTEBOOKS CORPORATIVOS
+   Evita que valores longos (principalmente HH:MM:SS de TMA/TMR)
+   invadam ícones, títulos ou cards vizinhos em resoluções menores,
+   zoom do navegador e escala do Windows.
+   ========================================================= */
+
+.kpi{
+  position:relative;
+  min-width:0!important;
+  overflow:hidden;
+  container-type:inline-size;
+}
+
+.kpi-top{
+  position:relative;
+  min-width:0;
+}
+
+.kpi-main{
+  flex:1 1 auto;
+  width:100%;
+  min-width:0;
+  padding-right:34px;
+}
+
+.kpi-copy{
+  flex:1 1 auto;
+  min-width:0;
+  max-width:100%;
+  overflow:hidden;
+}
+
+/* O botão de detalhe deixa de disputar largura com o número. */
+.kpi-open{
+  position:absolute!important;
+  top:0;
+  right:0;
+  z-index:2;
+}
+
+.kpi-value{
+  max-width:100%;
+  min-width:0;
+  font-size:clamp(22px,1.55vw,30px)!important;
+  line-height:1.04!important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:clip;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Horários HH:MM:SS precisam de mais largura que números simples. */
+.kpi-value-time{
+  font-size:clamp(19px,1.30vw,26px)!important;
+  letter-spacing:-.45px!important;
+  font-variant-numeric:tabular-nums;
+}
+
+.kpi-label{
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+
+/* Em notebooks, preserva largura útil por KPI em vez de apertar 6 cards. */
+@media(max-width:1800px){
+  .kpi-grid.six{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+
+@media(max-width:1180px){
+  .kpi-grid.six{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .kpi-value{
+    font-size:clamp(21px,2.25vw,27px)!important;
+  }
+  .kpi-value-time{
+    font-size:clamp(18px,2vw,23px)!important;
+  }
+}
+
+@media(max-width:720px){
+  .kpi-grid.six{
+    grid-template-columns:1fr!important;
+  }
+}
+
+/* Ajuste pelo tamanho real do card, útil com zoom 110–150%. */
+@container (max-width:300px){
+  .kpi{
+    padding:13px 13px 12px!important;
+  }
+  .kpi-main{
+    gap:9px!important;
+    padding-right:30px;
+  }
+  .kpi-icon-box{
+    width:36px!important;
+    height:36px!important;
+    flex-basis:36px!important;
+  }
+  .kpi-value{
+    font-size:22px!important;
+  }
+  .kpi-value-time{
+    font-size:18px!important;
+    letter-spacing:-.3px!important;
+  }
+  .kpi-label{
+    font-size:11.5px!important;
+  }
+}
+
+@container (max-width:245px){
+  .kpi-icon-box{
+    width:32px!important;
+    height:32px!important;
+    flex-basis:32px!important;
+  }
+  .kpi-icon-svg{
+    width:18px!important;
+    height:18px!important;
+  }
+  .kpi-value{
+    font-size:20px!important;
+  }
+  .kpi-value-time{
+    font-size:16.5px!important;
+  }
+  .kpi-compare-label{
+    display:none;
+  }
+}
+
+/* TMA/TMR dos cards de ambiente também ficam fluidos. */
+.env-bottom{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px!important;
+}
+.env-bottom span{
+  min-width:0;
+}
+.env-bottom b{
+  max-width:100%;
+  font-size:clamp(12px,1vw,14.5px)!important;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+
+@media(max-width:1180px){
+  .env-bottom b{font-size:13px!important}
+}
+
+/* =========================================================
+   V22 — 5 AMBIENTES EM UMA ÚNICA FILEIRA
+   Mantém CORE, INTEGRATION, CONTAINERS, API-GW e HML lado a lado
+   em desktops e notebooks, sem criar overflow horizontal.
+   ========================================================= */
+#section-environments .env-cards{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:10px!important;
+  width:100%;
+  min-width:0;
+}
+#section-environments .env-card{
+  min-width:0;
+  width:100%;
+  padding:17px 15px 15px;
+}
+#section-environments .env-head{
+  font-size:clamp(12px,.78vw,15px);
+}
+/* Somente o número de incidentes recebe tipografia grande.
+   Antes, o seletor genérico atingia também os percentuais de SLA. */
+#section-environments .env-main > div:first-child > strong{
+  font-size:clamp(30px,2vw,38px);
+}
+#section-environments .env-sla-stack{
+  min-width:0;
+}
+#section-environments .env-bottom{
+  gap:8px!important;
+}
+#section-environments .env-bottom b{
+  font-size:clamp(11.5px,.8vw,14px)!important;
+}
+#section-environments .env-card[data-env-card="HML"]{
+  background:
+    radial-gradient(circle at 88% 8%,rgba(183,140,255,.10),transparent 30%),
+    linear-gradient(180deg,rgba(8,64,68,.99),rgba(4,39,43,.99));
+}
+#section-environments .env-card[data-env-card="HML"] .env-icon-box{
+  color:#b78cff;
+  background:rgba(183,140,255,.10);
+  border-color:rgba(183,140,255,.22);
+}
+
+/* Só quebra a fileira quando realmente não há largura útil suficiente. */
+@media(max-width:980px){
+  #section-environments .env-cards{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:580px){
+  #section-environments .env-cards{
+    grid-template-columns:1fr!important;
+  }
+}
+
+
+/* =========================================================
+   V23 — SLA COMPACTO NOS 5 CARDS DE AMBIENTE
+   Mantém os cinco ambientes na mesma fileira sem cortar 100,00%.
+   ========================================================= */
+#section-environments .env-card{
+  container-type:inline-size;
+  overflow:hidden;
+}
+#section-environments .env-main{
+  display:grid!important;
+  grid-template-columns:minmax(82px,.72fr) minmax(0,1.28fr);
+  align-items:start!important;
+  gap:12px!important;
+}
+#section-environments .env-main > div:first-child{
+  min-width:0;
+}
+#section-environments .env-main > div:first-child > strong{
+  display:block;
+  max-width:100%;
+  font-size:clamp(29px,1.85vw,36px)!important;
+  line-height:1!important;
+  white-space:nowrap;
+}
+#section-environments .env-main > div:first-child > small{
+  display:block;
+  margin-top:5px;
+  white-space:nowrap;
+}
+#section-environments .env-sla-block{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0;
+  gap:6px;
+}
+#section-environments .env-sla-metric{
+  min-width:0;
+  padding:7px 8px 6px;
+  border-radius:8px;
+}
+#section-environments .env-sla-copy{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:7px;
+  min-width:0;
+}
+#section-environments .env-sla-copy span{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:clamp(7.2px,.46vw,8.4px);
+  line-height:1.15;
+}
+#section-environments .env-sla-copy strong{
+  display:block;
+  min-width:max-content;
+  max-width:none;
+  color:#f7ffff;
+  font-size:clamp(10.5px,.68vw,12.5px)!important;
+  line-height:1!important;
+  font-weight:850!important;
+  letter-spacing:-.12px!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+}
+#section-environments .env-sla-track{
+  margin-top:6px;
+  height:3px;
+}
+
+/* Quando o card fica estreito (notebook/zoom), o bloco de SLA passa para
+   baixo do volume, mas os cinco cards continuam na mesma fileira externa. */
+@container (max-width:255px){
+  #section-environments .env-main{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  #section-environments .env-sla-block{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px;
+  }
+  #section-environments .env-main > div:first-child > strong{
+    font-size:29px!important;
+  }
+  #section-environments .env-sla-copy span{
+    font-size:7.2px;
+  }
+  #section-environments .env-sla-copy strong{
+    font-size:10.5px!important;
+  }
+}
+
+@container (max-width:215px){
+  #section-environments .env-sla-block{
+    grid-template-columns:1fr;
+  }
+}
+
+/* V27 — Demandas por dia; legendas mantêm posição original. */
+#section-demands .chart-box{height:238px}
+#section-demands .interactive-panel{min-width:0}
+@media(max-width:1100px){#section-demands .chart-box{height:225px}}
+
+
+/* =========================================================
+   V28 — LEGENDA COM GLOW + SCROLL VERTICAL EM COMPARATIVOS
+   ========================================================= */
+/* Mesmo efeito luminoso usado na Distribuição por tipo. */
+.type-legend-dot{
+  box-shadow:
+    0 0 4px color-mix(in srgb,var(--dot) 82%,transparent),
+    0 0 10px color-mix(in srgb,var(--dot) 42%,transparent),
+    0 0 0 3px color-mix(in srgb,var(--dot) 12%,transparent)!important;
+}
+
+/* Os comparativos podem ter overflow horizontal, mas nunca devem capturar
+   a roda vertical do mouse e interromper a rolagem da página. */
+.dashboard-section .comparison-panel .table-wrap,
+.dashboard-section .compare .table-wrap{
+  overscroll-behavior-x:contain!important;
+  overscroll-behavior-y:auto!important;
+  overflow-y:visible!important;
+}
+
+/* V29 — filtros sem salto de viewport e transição visual suave */
+html,
+body,
+.app-shell,
+.dashboard-section {
+  overflow-anchor: none;
+}
+
+html.filter-refreshing,
+html.dashboard-updating {
+  scroll-behavior: auto !important;
+}
+
+.section-filter-transition .kpi,
+.section-filter-transition .panel,
+.section-filter-transition .env-card {
+  animation: serviceOpsFilterFade 220ms ease-out both;
+}
+
+@keyframes serviceOpsFilterFade {
+  from { opacity: .90; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-filter-transition .kpi,
+  .section-filter-transition .panel,
+  .section-filter-transition .env-card {
+    animation: none !important;
+  }
+}
+
+
+/* Portfolio branding */
+.brand-mark{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
+  border:1px solid rgba(37,228,173,.48);background:linear-gradient(145deg,rgba(37,228,173,.17),rgba(49,217,255,.08));
+  color:#35efb9;font-weight:850;font-size:12px;letter-spacing:.08em;box-shadow:inset 0 0 18px rgba(37,228,173,.06);
+}
+.brand-side .brand-mark{width:36px;height:36px}
+.portfolio-label,.footer-note,.portfolio-badge{font-size:10px;letter-spacing:.13em;font-weight:750;color:#88afb1}
+.portfolio-badge{padding:8px 11px;border:1px solid rgba(37,228,173,.24);border-radius:9px;color:#44e7bb;background:rgba(37,228,173,.05)}
+.footer-note{display:inline-flex;padding:10px 0}
+.product-brand-logo,.portfolio-logo,.sidebar-portfolio-logo,.footer-portfolio-logo{display:none!important}

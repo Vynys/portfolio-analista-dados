@@ -1,6 +1,6 @@
 # Portfólio — Vinicius da Costa Soares
 
-Showcase de projetos em Power BI, DAX, SQL e Python, com foco em resolver problemas de negócio de ponta a ponta (coleta → modelagem → visualização).
+Showcase de projetos em Power BI, DAX, SQL, Python e JavaScript, com foco em resolver problemas de negócio de ponta a ponta (coleta → modelagem → visualização).
 
 Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 
@@ -21,6 +21,7 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 - [Projeto 05 — SQL (PostgreSQL) | Vendas e Funil](#-projeto-05--sql-postgresql--vendas-e-funil)
 - [Projeto 06 — SQL (PostgreSQL) | Perfil dos Leads](#-projeto-06--sql-postgresql--perfil-dos-leads)
 - [Projeto 07 — Aurora Analytics | BigQuery + Power BI](#-projeto-07--aurora-analytics--bigquery--power-bi)
+- [Projeto 08 — ServiceOps Analytics | Dashboard Web](#-projeto-08--serviceops-analytics--dashboard-web)
 
 ## 🧭 Visão rápida 
 
@@ -33,6 +34,7 @@ Linkedin: https://www.linkedin.com/in/vinicius-soares-5885b4215/
 | 05 | 🗄️ SQL (PostgreSQL) \| Vendas e Funil | KPI mensal + rankings (estado/marca/loja) | PostgreSQL • pgAdmin • Excel | CTEs • Joins • `date_trunc` • KPIs no banco | 📁 [Pasta](projetos/Projeto5_Case/) • 📄 [PDF](projetos/Projeto5_Case/assets/Projeto%20-%20DashboardDeVendas.pdf) • 📊 [Excel](projetos/Projeto5_Case/files/Projeto%20-%20DashboardDeVendas.xlsx) • 🧾 [Relatório SQL](projetos/Projeto5_Case/files/Projeto05_Relatorio_SQL_Queries.txt) |
 | 06 | 🧠 SQL (PostgreSQL) \| Perfil dos Leads | Segmentação e distribuição (%) de leads | PostgreSQL • pgAdmin • Excel | CASE WHEN • Percentuais • Classificações • Ranking por marca | 📁 [Pasta](projetos/Projeto6_Case/) • 📄 [PDF](projetos/Projeto6_Case/assets/Projeto%20-%20PerfilDosLeads.pdf) • 📊 [Excel](projetos/Projeto6_Case/files/Projeto%20-%20PerfilDosLeads.xlsx) • 🧾 [Relatório SQL](projetos/Projeto6_Case/files/Projeto06_Relatorio_SQL_Queries.txt) |
 | 07 | 🟢 Aurora Analytics — BigQuery + Power BI | Vendas, rentabilidade e performance comercial | **Google BigQuery • GoogleSQL • Power BI • DAX** | **RAW → DW • ELT • Star Schema • Clustering • Data Quality • MoM** | 📁 [Pasta](projetos/Projeto07_Aurora_Analytics/) • 📄 [Case](projetos/Projeto07_Aurora_Analytics/README.md) • 🧾 [SQL](projetos/Projeto07_Aurora_Analytics/sql/) |
+| 08 | 🖥️ ServiceOps Analytics — Dashboard Web | Operações de TI, SLA, backlog e ambientes | **JavaScript • Vite • HTML/CSS • JSON** | **KPIs • SLA • TMA/TMR • Cross-filter • Drill-down • Data Quality** | 📁 [Pasta](projetos/Projeto08_ServiceOps_Analytics/) • 📄 [Case](projetos/Projeto08_ServiceOps_Analytics/README.md) • ✅ [Validação](projetos/Projeto08_ServiceOps_Analytics/VALIDACAO_DADOS.md) |
 
 
 ---
@@ -632,27 +634,7 @@ Também foram implementadas medidas para:
 
 ## 📷 Preview
 
-### Visão Geral
-
-![ServiceOps Analytics - Visão Geral](projetos/Projeto08_ServiceOps_Analytics/assets/visao-geral.jpeg)
-
-### Demandas
-
-![ServiceOps Analytics - Demandas](projetos/Projeto08_ServiceOps_Analytics/assets/demandas.jpeg)
-
-### Backlog
-
-![ServiceOps Analytics - Backlog](projetos/Projeto08_ServiceOps_Analytics/assets/backlog.jpeg)
-
-### Ambientes
-
-![ServiceOps Analytics - Ambientes](projetos/Projeto08_ServiceOps_Analytics/assets/ambientes.jpeg)
-
-### Melhorias
-
-![ServiceOps Analytics - Melhorias](projetos/Projeto08_ServiceOps_Analytics/assets/melhorias.jpeg)
-
-> Todos os dados exibidos neste projeto são 100% sintéticos e foram criados exclusivamente para demonstração e portfólio.
+![Aurora Analytics Dashboard](projetos/Projeto07_Aurora_Analytics/assets/dashboard-aurora.png)
 
 ---
 
@@ -720,4 +702,305 @@ Também foram implementadas medidas para:
 ## 🧰 Competências demonstradas
 
 **Google BigQuery • GoogleSQL • Cloud Data Warehouse • RAW/DW Architecture • ELT • SQL • Clustering • Data Quality • Troubleshooting • Star Schema • Power BI • DAX • Power Query • Data Visualization • Storytelling**
+
+---
+
+# 🖥️ Projeto 08 — ServiceOps Analytics | Dashboard Web
+
+## 🧾 Visão geral
+
+Projeto de **Analytics Operacional** desenvolvido para simular o acompanhamento de uma operação de suporte de TI por meio de um dashboard web interativo.
+
+A solução foi construída para centralizar indicadores de **chamados, horas dedicadas, TMA, TMR, SLA, backlog, ambientes e melhorias**, permitindo acompanhar a operação em uma visão executiva e aprofundar a análise por meio de filtros e interações entre os gráficos.
+
+Todos os dados utilizados são **100% sintéticos** e foram criados exclusivamente para fins de portfólio, sem exposição de informações reais de clientes, empresas, usuários ou operações.
+
+---
+
+## ⭐ Principal diferencial do projeto
+
+O diferencial deste case é transformar uma rotina operacional baseada em múltiplos indicadores em uma **aplicação web analítica completa**, com regras de negócio, cálculos de métricas, filtros interativos e navegação entre diferentes visões da operação.
+
+A arquitetura do projeto foi organizada da seguinte forma:
+
+```text
+Dados sintéticos
+      ↓
+Arquivos JSON / data-cache
+      ↓
+Camada de leitura e tratamento
+      ↓
+Cálculo das métricas
+      ↓
+JavaScript
+      ↓
+Dashboard Web Interativo
+```
+
+A aplicação separa a camada de dados, as regras de cálculo e a interface, permitindo que os indicadores sejam atualizados sem reconstruir toda a visualização.
+
+---
+
+## 🗂️ Estrutura de dados
+
+Os dados de demonstração são armazenados em arquivos JSON dentro da aplicação.
+
+Principais conjuntos utilizados:
+
+- `main.json` — base principal de chamados;
+- `backlog.json` — itens pendentes utilizados na análise de backlog;
+- `improvements.json` — demandas de melhoria;
+- `version.json` — controle da versão dos dados.
+
+O projeto também possui scripts próprios para geração e validação da base de demonstração:
+
+```text
+scripts/
+├── generate-demo-data.mjs
+└── validate_demo_data.mjs
+```
+
+Essa abordagem permite manter o projeto totalmente reproduzível utilizando apenas dados sintéticos.
+
+---
+
+## 🎯 Objetivos do projeto
+
+- Centralizar os principais indicadores de uma operação de suporte.
+- Monitorar o volume de **incidentes, requisições e outras demandas**.
+- Comparar a evolução operacional das **últimas quatro semanas**.
+- Acompanhar **TMA — Tempo Médio de Atendimento**.
+- Acompanhar **TMR — Tempo Médio de Resolução**.
+- Monitorar o **SLA de primeiro atendimento**.
+- Monitorar o **SLA de resolução**.
+- Analisar o backlog e a permanência dos itens pendentes.
+- Comparar o comportamento da operação entre diferentes ambientes.
+- Acompanhar demandas de melhoria.
+- Permitir investigação dos dados por meio de filtros e interações entre os gráficos.
+
+---
+
+## 📊 Visões do dashboard
+
+A aplicação foi organizada em cinco áreas principais:
+
+### 1. Visão geral
+
+Resumo executivo da operação com os principais KPIs:
+
+- Total de chamados;
+- Horas dedicadas;
+- TMA médio;
+- TMR médio;
+- SLA de primeiro atendimento;
+- SLA de resolução;
+- Evolução dos chamados nas últimas quatro semanas;
+- Distribuição por tipo de demanda;
+- Comparativo semanal dos principais indicadores.
+
+### 2. Demandas
+
+Visão destinada à análise detalhada dos chamados:
+
+- Incidentes;
+- Requisições;
+- Outras demandas;
+- Prioridade;
+- Volume;
+- Horas;
+- Tempos de atendimento e resolução;
+- Cumprimento de SLA.
+
+### 3. Backlog
+
+Área destinada aos itens ainda pendentes na operação:
+
+- Volume de backlog;
+- Prioridade;
+- Status;
+- Aging dos chamados;
+- Distribuição dos itens pendentes;
+- Investigação dos registros individualmente.
+
+### 4. Ambientes
+
+Comparação dos chamados entre os diferentes ambientes da operação, permitindo identificar concentração de demandas e diferenças de comportamento entre eles.
+
+### 5. Melhorias
+
+Acompanhamento das demandas classificadas como melhoria, permitindo visualizar volume, status e evolução dos itens.
+
+---
+
+## 🧮 Métricas e regras de negócio
+
+A aplicação calcula os principais indicadores diretamente a partir da camada de dados.
+
+Entre as métricas implementadas estão:
+
+- **Total de chamados**
+- **Total de horas dedicadas**
+- **TMA**
+- **TMR**
+- **SLA de primeiro atendimento**
+- **SLA de resolução**
+- **Quantidade de incidentes**
+- **Quantidade de requisições**
+- **Quantidade de outras demandas**
+- **Variação semanal**
+- **Distribuição percentual por tipo**
+- **Backlog**
+- **Aging**
+- **Indicadores por prioridade**
+- **Indicadores por ambiente**
+
+Os tempos são apresentados no padrão:
+
+```text
+HH:MM:SS
+```
+
+Os indicadores também permitem comparação da semana analisada com períodos anteriores, facilitando a identificação de aumentos, quedas e mudanças no comportamento operacional.
+
+---
+
+## 🔄 Interatividade
+
+O dashboard foi desenvolvido para permitir exploração dos dados sem depender de uma visão estática.
+
+Entre as funcionalidades implementadas estão:
+
+- filtros por período;
+- filtros por tipo de demanda;
+- interação entre gráficos;
+- **cross-filter** entre visuais;
+- seleção de barras e categorias;
+- atualização dinâmica dos KPIs;
+- tabelas de detalhamento;
+- navegação entre diferentes áreas da operação;
+- comparação das quatro semanas mais recentes.
+
+Ao selecionar uma categoria em um gráfico, os demais componentes relacionados podem ser atualizados para refletir apenas aquele contexto de análise.
+
+---
+
+## ✅ Validação e Data Quality
+
+Além da geração dos dados sintéticos, o projeto possui uma etapa específica de validação.
+
+O script:
+
+```text
+scripts/validate_demo_data.mjs
+```
+
+é utilizado para verificar a consistência da base antes da utilização no dashboard.
+
+A documentação da validação está disponível em:
+
+```text
+VALIDACAO_DADOS.md
+```
+
+Essa etapa ajuda a garantir que os dados de demonstração mantenham coerência entre volumes, categorias e indicadores exibidos na aplicação.
+
+---
+
+## 📷 Preview
+
+### Visão Geral
+
+![ServiceOps Analytics - Visão Geral](projetos/Projeto08_ServiceOps_Analytics/assets/visao-geral.jpeg)
+
+### Demandas
+
+![ServiceOps Analytics - Demandas](projetos/Projeto08_ServiceOps_Analytics/assets/demandas.jpeg)
+
+### Backlog
+
+![ServiceOps Analytics - Backlog](projetos/Projeto08_ServiceOps_Analytics/assets/backlog.jpeg)
+
+### Ambientes
+
+![ServiceOps Analytics - Ambientes](projetos/Projeto08_ServiceOps_Analytics/assets/ambientes.jpeg)
+
+### Melhorias
+
+![ServiceOps Analytics - Melhorias](projetos/Projeto08_ServiceOps_Analytics/assets/melhorias.jpeg)
+
+> Todos os dados exibidos neste projeto são 100% sintéticos e foram criados exclusivamente para demonstração e portfólio.
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- **JavaScript**
+- **HTML5**
+- **CSS3**
+- **Vite**
+- **JSON**
+- **Node.js / scripts `.mjs`**
+- **Git**
+- **GitHub**
+
+---
+
+## 📊 Resultados do case
+
+A solução permite:
+
+- consolidar indicadores operacionais em uma única interface;
+- acompanhar rapidamente variações semanais;
+- identificar alterações em TMA, TMR e SLA;
+- visualizar a composição dos chamados por tipo;
+- investigar o backlog;
+- comparar diferentes ambientes;
+- acompanhar melhorias;
+- navegar do resumo executivo para análises mais detalhadas.
+
+O resultado final é uma aplicação de analytics com foco em **monitoramento operacional, investigação de desvios e acompanhamento de performance**.
+
+---
+
+## 🔒 Dados e confidencialidade
+
+Este repositório utiliza apenas **dados sintéticos**.
+
+Nenhum dado real de clientes, empresas, usuários, chamados ou ambientes corporativos foi incluído no projeto.
+
+A aplicação foi construída exclusivamente para demonstrar competências técnicas em **análise de dados, definição de KPIs, regras de negócio, qualidade de dados, visualização e desenvolvimento de dashboards interativos**.
+
+---
+
+## 📦 Entregáveis
+
+- Dashboard web interativo
+- Código-fonte da aplicação
+- Dados sintéticos em JSON
+- Scripts de geração de dados
+- Scripts de validação
+- Métricas operacionais
+- Análise de SLA
+- Comparativo das últimas quatro semanas
+- Análise de backlog
+- Análise por ambiente
+- Área de melhorias
+- README técnico
+- Documentação de validação de dados
+
+---
+
+## 📖 Projeto completo
+
+- 📁 [Abrir pasta do projeto](projetos/Projeto08_ServiceOps_Analytics/)
+- 📄 [README técnico](projetos/Projeto08_ServiceOps_Analytics/README.md)
+- ✅ [Validação dos dados](projetos/Projeto08_ServiceOps_Analytics/VALIDACAO_DADOS.md)
+- ⚙️ [Scripts](projetos/Projeto08_ServiceOps_Analytics/scripts/)
+- 💻 [Código-fonte](projetos/Projeto08_ServiceOps_Analytics/src/)
+
+---
+
+## 🧰 Competências demonstradas
+
+**Business Intelligence • Data Analytics • KPI Design • SLA Analysis • TMA • TMR • Backlog Analysis • Data Quality • JavaScript • HTML • CSS • Vite • JSON • Data Visualization • Dashboard Development • Cross-filter • Data Validation • Git • GitHub**
 
